@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import authReducer from 'features/Auth/authSlice';
 import CallReducer from 'features/CallRecords/CallSlice';
 import leadReducer from 'features/Lead/leadSlice';
 import loanTypeReducer from 'features/LoanType/loanTypeSlice';
@@ -11,6 +12,7 @@ export const store = configureStore({
    lead:leadReducer,
    loanType:loanTypeReducer,
    callRecords:CallReducer,
-   meetingRecords:MeetingReducer
+   meetingRecords:MeetingReducer,
+   auth:authReducer
   }
 });

@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import initialTheme from './theme/theme'; //  { themeGreen }
 import { useState } from 'react';
+import LeadDetail from 'views/admin/LeadDetail/components/LeadDetail';
 // Chakra imports
 
 export default function Main() {
@@ -32,6 +33,14 @@ export default function Main() {
           }
         />
         <Route path="/" element={<Navigate to="/admin" replace />} />
+
+        {/* <Route path='/admin/lead-detail/:id' element={<LeadDetail/>}/> */}
+        {/* <Route
+          path="admin/lead-detail/:id"
+          element={
+            <LeadDetail theme={currentTheme} setTheme={setCurrentTheme} />
+          }
+        /> */}
       </Routes>
     </ChakraProvider>
   );

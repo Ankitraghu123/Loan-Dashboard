@@ -1,5 +1,6 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { config } from "utils/config";
 
 const AddLead = async (data)=>{
     const response = await axios.post(`${base_url}lead/addLead`,data)
@@ -7,7 +8,8 @@ const AddLead = async (data)=>{
 }
 
 const GetAllLeads = async (data)=>{
-    const response = await axios.get(`${base_url}lead/all`)
+    console.log(config)
+    const response = await axios.get(`${base_url}lead/all`,config)
     return response.data
 }
 

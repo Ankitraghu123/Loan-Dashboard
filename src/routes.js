@@ -27,44 +27,44 @@ import LeadDetail from 'views/admin/LeadDetail/components/LeadDetail';
 
 const routes = [
   {
-    name: 'Main Dashboard',
+    name: 'Dashboard',
     layout: '/admin',
     path: '/default',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
     component: <MainDashboard />,
   },
-  {
-    name: 'NFT Marketplace',
-    layout: '/admin',
-    path: '/nft-marketplace',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <NFTMarketplace />,
-    secondary: true,
-  },
+  // {
+  //   name: 'NFT Marketplace',
+  //   layout: '/admin',
+  //   path: '/nft-marketplace',
+  //   icon: (
+  //     <Icon
+  //       as={MdOutlineShoppingCart}
+  //       width="20px"
+  //       height="20px"
+  //       color="inherit"
+  //     />
+  //   ),
+  //   component: <NFTMarketplace />,
+  //   secondary: true,
+  // },
 
 
-  {
-    name: 'Registration Form',
-    layout: '/admin',
-    path: '/registration',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <Register />,
-    secondary: true,
-  },
+  // {
+  //   name: 'Registration Form',
+  //   layout: '/admin',
+  //   path: '/registration',
+  //   icon: (
+  //     <Icon
+  //       as={MdOutlineShoppingCart}
+  //       width="20px"
+  //       height="20px"
+  //       color="inherit"
+  //     />
+  //   ),
+  //   component: <Register />,
+  //   secondary: true,
+  // },
   {
     name: 'All Leads',
     layout: '/admin',
@@ -75,6 +75,81 @@ const routes = [
 
   {
     name: 'Add Lead',
+    layout: '/admin',
+    path: '/add-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AddLeadForm />,
+    secondary: true,
+  },
+  {
+    name: 'Pending Lead',
+    layout: '/admin',
+    path: '/add-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AddLeadForm />,
+    secondary: true,
+  },
+  {
+    name: 'Sanction Lead',
+    layout: '/admin',
+    path: '/add-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AddLeadForm />,
+    secondary: true,
+  },
+  {
+    name: 'Disbarsment Lead',
+    layout: '/admin',
+    path: '/add-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AddLeadForm />,
+    secondary: true,
+  },
+  {
+    name: 'Rejected Lead By Bank',
+    layout: '/admin',
+    path: '/add-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AddLeadForm />,
+    secondary: true,
+  },
+  {
+    name: 'Rejected Lead By Admin',
     layout: '/admin',
     path: '/add-lead',
     icon: (
@@ -101,21 +176,22 @@ const routes = [
     path: '/lead-detail/:id',
     icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
     component: <LeadDetail />,
-  },
-  {
-    name: 'Data Tables',
-    layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
-    component: <DataTables />,
-  },
-  {
-    name: 'Profile',
-    layout: '/admin',
-    path: '/profile',
-    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-    component: <Profile />,
-  },
+  }, 
+  // {
+  //   name: 'Data Tables',
+  //   layout: '/admin',
+  //   icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+  //   path: '/data-tables',
+  //   component: <DataTables />,
+  // },
+  // {
+
+  //   name: 'Profile',
+  //   layout: '/admin',
+  //   path: '/profile',
+  //   icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+  //   component: <Profile />,
+  // },
   {
     name: 'Sign In',
     layout: '/auth',
@@ -123,13 +199,13 @@ const routes = [
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
     component: <SignInCentered />,
   },
-  {
-    name: 'RTL Admin',
-    layout: '/rtl',
-    path: '/rtl-default',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: <RTL />,
-  },
+  // {
+  //   name: 'RTL Admin',
+  //   layout: '/rtl',
+  //   path: '/rtl-default',
+  //   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+  //   component: <RTL />,
+  // },
 ];
 
 export default routes;
