@@ -3,17 +3,21 @@ import { Card, Form, Button, Row, Col } from '@themesberg/react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllLoans } from 'features/LoanType/loanTypeSlice';
 import { AddLead } from 'features/Lead/leadSlice';
+import { GetAllAssociates } from 'features/BusinessAssociate/BusinessAssociateSlice';
 
 export const AddLeadForm = () => {
     const dispatch = useDispatch();
     const allLoanTypes = useSelector((state) => state.loanType?.allLoanTypes);
+    const currentAssociate = useSelector(state => state.associate?.businessAssociate)
+    const allBusinessAssociatess = useSelector((state) => state.associate?.allAssociate);
+
     const [formData, setFormData] = useState({
         name: "",
         mobileNumber: "",
         alternateMobileNumber: "",
         email: "",
         loanType: "",
-        businessAssociate: "",
+        businessAssociate: currentAssociate ? currentAssociate._id : "",
         referralName: "",
         lastAppliedBank: "",
         lastRejectionReason: ""
@@ -22,6 +26,7 @@ export const AddLeadForm = () => {
 
     useEffect(() => {
         dispatch(GetAllLoans());
+        dispatch(GetAllAssociates())
     }, [dispatch]);
 
     const validate = (data) => {
@@ -154,18 +159,26 @@ export const AddLeadForm = () => {
                                 </Form.Control>
                             </Form.Group>
                         </Col>
-                        <Col md={6} className="mb-3">
+                       {!currentAssociate ?  <Col md={6} className="mb-3">
                             <Form.Group id="businessAssociate">
                                 <Form.Label>Business Associate</Form.Label>
                                 <Form.Control
+                                    as="select"
                                     name="businessAssociate"
                                     value={formData.businessAssociate}
                                     onChange={changeHandler}
-                                    type="text"
-                                    placeholder="Enter Business Associate"
-                                />
+                                    // type="text"
+                                    // placeholder="Enter Business Associate"
+                                >
+                                     <option value="">Select Business Associate</option>
+                                    {allBusinessAssociatess?.map((associate) => (
+                                        <option key={associate._id} value={associate._id}>
+                                            {associate.name}
+                                        </option>
+                                    ))}
+                                </Form.Control>
                             </Form.Group>
-                        </Col>
+                        </Col> : null}
                     </Row>
                     <Row>
                         <Col md={6} className="mb-3">

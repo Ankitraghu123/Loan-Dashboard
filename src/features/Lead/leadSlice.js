@@ -43,6 +43,32 @@ export const EditLead = createAsyncThunk('lead/edit',async(data,thunkApi)=>{
     }
 })
 
+
+export const GetPendingLeadByAssociate = createAsyncThunk('lead/pending/associate',async(id,thunkApi)=>{
+    try{
+        return await LeadService.GetPendingLeadByAssociate(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const GetDispersedLeadByAssociate = createAsyncThunk('lead/dispersed/associate',async(id,thunkApi)=>{
+    try{
+        return await LeadService.GetDispersedLeadByAssociate(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const GetRejectedLeadByAssociate = createAsyncThunk('lead/rejected/associate',async(id,thunkApi)=>{
+    try{
+        return await LeadService.GetRejectedLeadByAssociate(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+
 const initialState = {
     lead:'',
     isError:false,
@@ -137,6 +163,54 @@ export const LeadSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.editedLead = null
+
+        })
+        .addCase(GetPendingLeadByAssociate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetPendingLeadByAssociate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.pendingLead = action.payload
+           
+        })
+        .addCase(GetPendingLeadByAssociate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.pendingLead = null
+
+        })
+        .addCase(GetDispersedLeadByAssociate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetDispersedLeadByAssociate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.dispersedLead = action.payload
+           
+        })
+        .addCase(GetDispersedLeadByAssociate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.dispersedLead = null
+
+        })
+        .addCase(GetRejectedLeadByAssociate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetRejectedLeadByAssociate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.rejectedLead = action.payload
+           
+        })
+        .addCase(GetRejectedLeadByAssociate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.rejectedLead = null
 
         })
     }

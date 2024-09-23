@@ -8,10 +8,12 @@ import React, { useEffect, useState } from 'react';
 // import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import Timeline from './Timeline';
 
 const LeadDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [isAdmin,setIsAdmin]= useState(false)
 
   const callData = useSelector(state => state.callRecords?.callRecords?.data)
   const meetingData = useSelector(state => state.meetingRecords?.meetingByLead?.data)
@@ -119,10 +121,11 @@ console.log(dateTimeFormat(isoDateString));
   
 
   return (
+   <>
     <Flex justify="center" align="flex-start" wrap="wrap" gap="20px" mt="20px">
       {/* First Card */}
       <Card 
-  style={{ width: '400px' }} 
+  style={{ width: isAdmin ? '400px' : '100%' }} 
   align="center"
   p={4} 
 //   border="1px solid" 
@@ -209,7 +212,7 @@ console.log(dateTimeFormat(isoDateString));
   </Flex>
 </Card>
 
-      <Card 
+     {isAdmin ?  <Card 
         style={{ width: '300px' }} 
         p={2} 
         border="none"
@@ -269,10 +272,10 @@ console.log(dateTimeFormat(isoDateString));
             Add Call Record
           </Button>
         </Box>
-      </Card>
+      </Card> : null}
 
       {/* Meeting Form */}
-      <Card 
+     {isAdmin?  <Card 
         style={{ width: '300px' }} 
         p={2} 
         border="none"
@@ -333,9 +336,9 @@ console.log(dateTimeFormat(isoDateString));
             Add Meeting
           </Button>
         </Box>
-      </Card>
+      </Card> : null}
 
-      <Card
+      {isAdmin ? <Card
       w="45%"
       px="0px"
       overflowX={{ sm: 'scroll', lg: 'scroll' }}
@@ -382,8 +385,8 @@ console.log(dateTimeFormat(isoDateString));
           </Tbody>
         </Table>
       </Box>
-    </Card>
-    <Card
+    </Card> : null}
+    {isAdmin ? <Card
       w="45%"
       overflowX={{ sm: 'scroll', lg: 'scroll' }}
     >
@@ -429,8 +432,9 @@ console.log(dateTimeFormat(isoDateString));
           </Tbody>
         </Table>
       </Box>
-    </Card>
+    </Card> : null}
     </Flex>
+    <Timeline/></>
   );
 };
 

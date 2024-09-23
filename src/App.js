@@ -12,6 +12,8 @@ import initialTheme from './theme/theme'; //  { themeGreen }
 import { useState } from 'react';
 import LeadDetail from 'views/admin/LeadDetail/components/LeadDetail';
 // Chakra imports
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Main() {
   // eslint-disable-next-line
@@ -32,7 +34,7 @@ export default function Main() {
             <RTLLayout theme={currentTheme} setTheme={setCurrentTheme} />
           }
         />
-        <Route path="/" element={<Navigate to="/admin" replace />} />
+        <Route path="/" element={<Navigate to="/auth/sign-in" replace />} />
 
         {/* <Route path='/admin/lead-detail/:id' element={<LeadDetail/>}/> */}
         {/* <Route
@@ -42,6 +44,7 @@ export default function Main() {
           }
         /> */}
       </Routes>
+      <ToastContainer />
     </ChakraProvider>
   );
 }

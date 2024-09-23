@@ -14,7 +14,8 @@ import {
   InputRightElement,
   Text,
   useColorModeValue,
-  useToast
+  useToast,
+  Select
 } from "@chakra-ui/react";
 // Custom components
 import DefaultAuth from "layouts/auth/Default";
@@ -24,6 +25,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { LoginAdmin } from "features/Auth/authSlice";
+import { LoginAssociate } from "features/BusinessAssociate/BusinessAssociateSlice";
 
 function SignIn() {
   // Chakra color mode
@@ -35,6 +37,7 @@ function SignIn() {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role,setRole] = useState('')
   const toast = useToast();
 
   const handleClick = () => setShow(!show);
@@ -53,7 +56,11 @@ function SignIn() {
       return;
     }
 
-    dispatch(LoginAdmin({email,password}))
+    if(role == 'admin'){
+      dispatch(LoginAdmin({email,password}))
+    }else if(role == 'associate'){
+      dispatch(LoginAssociate({email,password}))
+    }
   };
 
   return (
@@ -145,6 +152,31 @@ function SignIn() {
                 />
               </InputRightElement>
             </InputGroup>
+
+            <FormLabel
+  ms="4px"
+  fontSize="sm"
+  fontWeight="500"
+  color={textColor}
+  display="flex"
+>
+  Role<Text color={brandStars}>*</Text>
+</FormLabel>
+<InputGroup size="md">
+  <Select
+    isRequired={true}
+    fontSize="sm"
+    mb="24px"
+    size="lg"
+    variant="auth"
+    value={role}  // Assuming you have a state for role
+    onChange={(e) => setRole(e.target.value)}  // Assuming setRole is the setter function for role
+    placeholder="Select Role"
+  >
+    <option value="admin">Admin</option>
+    <option value="associate">Associate</option>
+  </Select>
+</InputGroup>
             <Button
               fontSize='sm'
               variant='brand'

@@ -2,6 +2,7 @@ import React from 'react'
 import LeadDetail from './components/LeadDetail'
 import { Box } from '@chakra-ui/react'
 import Sidebar from 'components/sidebar/Sidebar'
+import Timeline from './components/Timeline'
 const Index = () => {
   return (
 

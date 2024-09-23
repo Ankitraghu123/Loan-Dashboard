@@ -11,6 +11,7 @@ export const LoginAdmin = createAsyncThunk('admin/login',async(data,thunkApi)=>{
 })
 
 
+
 const initialState = {
     auth:'',
     isError:false,

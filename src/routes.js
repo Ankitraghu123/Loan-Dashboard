@@ -23,6 +23,8 @@ import SignInCentered from 'views/auth/signIn';
 import { AddLeadForm } from 'views/admin/Lead/components/addLeadForm';
 import AllLeads from 'views/admin/AllLeads/components/AllLeads';
 import LeadDetail from 'views/admin/LeadDetail/components/LeadDetail';
+import AssociateRegisterForm from 'views/admin/RegisterBusinessAssociate/component/AssociateRegisterForm';
+import PendingAssociatesLeads from 'views/admin/AssociatesLead/components/PendingAssociatesLeads';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -91,7 +93,7 @@ const routes = [
   {
     name: 'Pending Lead',
     layout: '/admin',
-    path: '/add-lead',
+    path: '/pending-lead',
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -100,7 +102,7 @@ const routes = [
         color="inherit"
       />
     ),
-    component: <AddLeadForm />,
+    component: <PendingAssociatesLeads />,
     secondary: true,
   },
   {
@@ -199,6 +201,13 @@ const routes = [
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
     component: <SignInCentered />,
   },
+  {
+    name: 'Register Associate',
+    layout: '/admin',
+    path: '/registerAssociate',
+    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
+    component: <AssociateRegisterForm/>,
+  }
   // {
   //   name: 'RTL Admin',
   //   layout: '/rtl',

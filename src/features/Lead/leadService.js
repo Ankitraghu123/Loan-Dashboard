@@ -3,12 +3,11 @@ import { base_url } from "../../utils/base_url";
 import { config } from "utils/config";
 
 const AddLead = async (data)=>{
-    const response = await axios.post(`${base_url}lead/addLead`,data)
+    const response = await axios.post(`${base_url}lead/addLead`,data,config)
     return response.data
 }
 
 const GetAllLeads = async (data)=>{
-    console.log(config)
     const response = await axios.get(`${base_url}lead/all`,config)
     return response.data
 }
@@ -28,9 +27,24 @@ const EditLead = async (data)=>{
     return response.data
 }
 
+const GetPendingLeadByAssociate = async (id)=>{
+    const response = await axios.get(`${base_url}lead/${id}/pending`)
+    return response.data
+}
+
+const GetDispersedLeadByAssociate = async (id)=>{
+    const response = await axios.get(`${base_url}lead/${id}/dispersed`)
+    return response.data
+}
+
+const GetRejectedLeadByAssociate = async (id)=>{
+    const response = await axios.get(`${base_url}lead/${id}/rejected`)
+    return response.data
+}
 
 
 
-const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead}
+
+const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetDispersedLeadByAssociate,GetRejectedLeadByAssociate}
 
 export default LeadService
