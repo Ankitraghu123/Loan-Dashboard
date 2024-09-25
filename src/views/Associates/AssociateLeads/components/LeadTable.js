@@ -135,13 +135,13 @@ const LeadTable= ({tableData,tableName}) => {
                 <Td fontSize={{ sm: '14px' }}>{row.loanType?.loanName}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.businessAssociate.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
-                <Td>
+                <Td className='d-flex'>
                   <Button onClick={() => { setSelectedLead(row); onOpen(); }}>
                     <EditIcon />
                   </Button>
-                  <Button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4">
+                  <button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4" style={{color:"red"}}>
                     <DeleteIcon />
-                  </Button>
+                  </button>
                 </Td>
               </Tr>
             ))}

@@ -262,7 +262,7 @@ console.log(dateTimeFormat(isoDateString));
     </Flex>
   </Box>
 
-  <Flex w="full" mx="auto" mt="16px">
+  <Flex w="full" mx="auto" mt="48px">
     
     
     
