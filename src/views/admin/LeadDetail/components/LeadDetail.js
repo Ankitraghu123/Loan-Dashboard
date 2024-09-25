@@ -152,7 +152,7 @@ console.log(dateTimeFormat(isoDateString));
         <Text color={textColorPrimary}>{currentLead?.name}</Text>
       </Flex>
       <Flex justify="space-between" mb="2">
-        <Text color={textColorSecondary}>Created At</Text>
+        <Text color={textColorSecondary}>Lead Given At</Text>
         <Text color={textColorPrimary}>{formatDate(currentLead?.createdAt)}</Text>
       </Flex>
       <Flex justify="space-between" mb="2">
@@ -169,7 +169,7 @@ console.log(dateTimeFormat(isoDateString));
       </Flex>
      {!isAssociate() ?  <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Business Associate:</Text>
-        <Text color={textColorPrimary}>{currentLead?.businessAssociate}</Text>
+        <Text color={textColorPrimary}>{currentLead?.referralName == 'Yes' ? currentLead?.businessAssociate?.name : 'NA'}</Text>
       </Flex> : null}
       {/* <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Referral Name:</Text>
@@ -189,7 +189,7 @@ console.log(dateTimeFormat(isoDateString));
  {!isAssociate() ?  <Flex w="max-content" mx="auto" mt="26px">
     <Flex mx="auto" me="60px" align="center" direction="column">
       <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
-        {totalCallCounts}
+        {totalCallCounts ? totalCallCounts : 0}
       </Text>
       <Text color={textColorSecondary} fontSize="sm" fontWeight="400">
         Total Calls
@@ -197,7 +197,7 @@ console.log(dateTimeFormat(isoDateString));
     </Flex>
     <Flex mx="auto" me="60px" align="center" direction="column">
       <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
-        {totalMeetCounts}
+        {totalMeetCounts ? totalMeetCounts : 0}
       </Text>
       <Text color={textColorSecondary} fontSize="sm" fontWeight="400">
         Total Meetings

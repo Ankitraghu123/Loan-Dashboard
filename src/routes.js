@@ -35,13 +35,13 @@ import { AddLeadForm } from 'views/admin/Lead/components/addLeadForm';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
-  {
-    name: 'Dashboard',
-    layout: '/admin',
-    path: '/default',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: <MainDashboard />,
-  },
+  // {
+  //   name: 'Dashboard',
+  //   layout: '/admin',
+  //   path: '/default',
+  //   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+  //   component: <MainDashboard />,
+  // },
   // {
   //   name: 'NFT Marketplace',
   //   layout: '/admin',

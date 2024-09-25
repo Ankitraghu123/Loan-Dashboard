@@ -1,5 +1,6 @@
 import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import businessAssociateService from "./BusinessAssociateService";
+import { toast } from "react-toastify";
 
 const associateState = localStorage.getItem('associateData');
 const associateData = associateState ? JSON.parse(associateState) : null;
@@ -62,6 +63,9 @@ export const businessAssociateSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.associateData = action.payload
+            if(state.isSuccess){
+                toast.success("associate added successfully")
+            }
            
         })
         .addCase(RegisterAssociate.rejected,(state,action)=>{

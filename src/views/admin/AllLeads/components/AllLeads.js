@@ -137,7 +137,7 @@ const AllLeads = () => {
                 <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.email}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.loanType?.loanName}</Td>
-                <Td fontSize={{ sm: '14px' }}>{row.businessAssociate}</Td>
+                <Td fontSize={{ sm: '14px' }}>{row.businessAssociate?.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
                 <Td>
                   <Button onClick={() => { setSelectedLead(row); onOpen(); }}>

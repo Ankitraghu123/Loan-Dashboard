@@ -178,7 +178,7 @@ export const AddLeadForm = () => {
                                             {associate.name}
                                         </option>
                                     ))}
-                                </Form.Control>: <FormControl type='text' value={currentAssociate.name} />
+                                </Form.Control>: <FormControl type='text' value={currentAssociate?.name} />
 }
                             </Form.Group>
                         </Col> 

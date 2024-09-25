@@ -14,6 +14,10 @@ const AssociateRegisterForm = () => {
         name: "",
         email: "",
         password: "",
+        mobile:"",
+        currentDesignation:"",
+        currentBank:"",
+        location:""
     });
 
     const changeHandler = (e) => {
@@ -37,7 +41,7 @@ const AssociateRegisterForm = () => {
 
        <Form >
             <Row>
-                <Col md={12} className="mb-3">
+                <Col md={6} className="mb-3">
                     <Form.Group id="contactPersonName">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -50,9 +54,7 @@ const AssociateRegisterForm = () => {
                         />
                     </Form.Group>
                 </Col>
-            </Row>
-            <Row>
-                <Col md={12} className="mb-3">
+                <Col md={6} className="mb-3">
                     <Form.Group id="email">
                         <Form.Label> Email</Form.Label>
                         <Form.Control
@@ -65,7 +67,9 @@ const AssociateRegisterForm = () => {
                         />
                     </Form.Group>
                 </Col>
-                <Col md={12} className="mb-3">
+            </Row>
+            <Row>
+            <Col md={6} className="mb-3">
                     <Form.Group id="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -78,8 +82,63 @@ const AssociateRegisterForm = () => {
                         />
                     </Form.Group>
                 </Col>
+                <Col md={6} className="mb-3">
+                    <Form.Group id="mobile">
+                        <Form.Label>Mobile Number</Form.Label>
+                        <Form.Control
+                            name="mobile"
+                            value={formData.mobile}
+                            onChange={changeHandler}
+                            required
+                            type="text"
+                            placeholder="Enter Mobile"
+                        />
+                    </Form.Group>
+                </Col>
 
             </Row>
+            <Row>
+            <Col md={6} className="mb-3">
+                    <Form.Group id="currentDesignation">
+                        <Form.Label>Current Designation</Form.Label>
+                        <Form.Control
+                            name="currentDesignation"
+                            value={formData.currentDesignation}
+                            onChange={changeHandler}
+                            required
+                            type="text"
+                            placeholder="Enter current Designation"
+                        />
+                    </Form.Group>
+                </Col>
+                <Col md={6} className="mb-3">
+                    <Form.Group id="currentBank">
+                        <Form.Label>Current Bank</Form.Label>
+                        <Form.Control
+                            name="currentBank"
+                            value={formData.currentBank}
+                            onChange={changeHandler}
+                            required
+                            type="text"
+                            placeholder="Enter Current Bank"
+                        />
+                    </Form.Group>
+                </Col>
+
+            </Row>
+            <Col md={6} className="mb-3">
+                    <Form.Group id="location">
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control
+                            name="location"
+                            value={formData.location}
+                            onChange={changeHandler}
+                            required
+                            type="text"
+                            placeholder="Enter Location"
+                        />
+                    </Form.Group>
+                </Col>
             <div className="mt-3">
                 <Button variant="primary" onClick={formHandler}>
                     Add Business Associate

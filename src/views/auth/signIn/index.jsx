@@ -62,7 +62,7 @@ function SignIn() {
   };
 
   useEffect(() => {
-    if(isSuccess)navigate('/admin/main-dashboard')
+    if(isSuccess) navigate('/admin/add-lead')
   },[isSuccess])
 
   return (

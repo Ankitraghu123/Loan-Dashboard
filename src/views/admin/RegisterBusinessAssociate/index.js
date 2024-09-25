@@ -6,17 +6,14 @@ const index = () => {
   return (
 
     <Box pt={{ base: "130px", md: "80px", xl: "100px" }}>
-    <SimpleGrid
+    {/* <SimpleGrid
       columns={{ base: 1, md: 2 }}
       spacing={{ base: "20px", xl: "20px" }}
-    >
-      <Box>
+    > */}
+      {/* <Box> */}
         <AssociateRegisterForm/>
-      </Box>
-      <Box>
-        
-      </Box>
-    </SimpleGrid>
+      {/* </Box> */}
+    {/* </SimpleGrid> */}
   </Box>
   )
 }

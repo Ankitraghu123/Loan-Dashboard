@@ -2,7 +2,7 @@
 import { Box, Flex, Stack, Collapse, Text, useDisclosure } from "@chakra-ui/react";
 import Brand from "components/sidebar/components/Brand";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from '@chakra-ui/react';
 import {
   MdHome,
@@ -14,10 +14,12 @@ import {
 } from 'react-icons/md';
 import { isAdmin } from "utils/config";
 import { isAssociate } from "utils/config";
+import { toast } from "react-toastify";
 
 // FUNCTIONS
 
 function SidebarContent(props) {
+  const navigate = useNavigate()
   const { routes } = props;
 
   // Custom hooks for handling collapsible sections
@@ -32,6 +34,12 @@ function SidebarContent(props) {
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location.pathname]);
+
+  const logouthandler = () =>{
+    localStorage.clear();
+    navigate('/auth/sign-in')
+    toast.success('logged out successfully')
+  }
 
   return (
     <Flex
@@ -278,6 +286,24 @@ function SidebarContent(props) {
               </Link>
               </Box>:null
       }
+
+<Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
+      {/* <Link to='/admin/loan' style={{ textDecoration: 'none' }}> */}
+                <Flex
+                  align="center"
+                  p={3}
+                  border="1px"
+                  borderColor="gray.200"
+                  borderRadius="8px"
+                  onClick={logouthandler}
+                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+                  // bg={activeLink === "/admin/loan" ? "teal.100" : "white"} // Active background color
+                >
+                  <Icon as={MdDashboard} color="teal.500" mr={2} />
+                  <Text fontWeight="bold">Logout</Text>
+                </Flex>
+              {/* </Link> */}
+              </Box>
       </Stack>
     </Flex>
   );

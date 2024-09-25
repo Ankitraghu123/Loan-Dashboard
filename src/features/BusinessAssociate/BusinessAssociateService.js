@@ -1,11 +1,12 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { config } from "utils/config";
 
 const RegisterAssociate= async (data)=>{
-    const response = await axios.post(`${base_url}businessAssociates/register`,data)
+    const response = await axios.post(`${base_url}businessAssociates/register`,data,config)
     const { token } = response.data;
-    localStorage.setItem('associateToken', token);
-    localStorage.setItem('associateData', JSON.stringify(response.data));
+    // localStorage.setItem('associateToken', token);
+    // localStorage.setItem('associateData', JSON.stringify(response.data));
     return response.data
 }
 
