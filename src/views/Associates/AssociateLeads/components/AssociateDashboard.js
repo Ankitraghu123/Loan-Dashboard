@@ -45,10 +45,10 @@ const AssociateDashboard = () => {
 
 
     useEffect(() =>{
-        dispatch(GetAllLeadsByAssociate(currentAssociate._id))
-        dispatch(GetPendingLeadByAssociate(currentAssociate._id))
-        dispatch(GetRejectedLeadByAssociate(currentAssociate._id))
-        dispatch(GetSanctionedLeadByAssociate(currentAssociate._id))
+        dispatch(GetAllLeadsByAssociate(currentAssociate?._id))
+        dispatch(GetPendingLeadByAssociate(currentAssociate?._id))
+        dispatch(GetRejectedLeadByAssociate(currentAssociate?._id))
+        dispatch(GetSanctionedLeadByAssociate(currentAssociate?._id))
     },[dispatch])
     return (
       <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>

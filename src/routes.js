@@ -32,10 +32,177 @@ import AssociateDashboard from 'views/Associates/AssociateLeads/components/Assoc
 import AssocitaeAllLeads from 'views/Associates/AssociateLeads/components/AssocitaeAllLeads';
 import RegisterBusinessAssociate from 'views/admin/RegisterBusinessAssociate/index';
 import { AddLeadForm } from 'views/admin/Lead/components/addLeadForm';
+import { isAssociate } from 'utils/config';
+import { isAdmin } from 'utils/config';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
+
+  ...(isAssociate() ? [
+    
+  {
+    name: 'Associate Dashboard',
+    layout: '/admin',
+    path: '/associate-dashboard',
+    component: <AssociateDashboard />,
+  },
+
+  {
+    name: 'Associate All Leads',
+    layout: '/admin',
+    path: '/associate-all-lead',
+    component: <AssocitaeAllLeads />,
+  },
+
+  {
+    name: 'Pending Lead',
+    layout: '/admin',
+    path: '/associate-pending-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AssociatePendingLeads />,
+    secondary: true,
+  },
+
+  {
+    name: 'Sanction Lead',
+    layout: '/admin',
+    path: '/associate-sanction-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AssociateSanctionLead />,
+    secondary: true,
+  },
+  {
+    name: 'Disbarsment Lead',
+    layout: '/admin',
+    path: '/associate-disbarsed-lead',
+    component: <AssociateDisbarsement />,
+    secondary: true,
+  },
+  {
+    name: 'Rejected Lead',
+    layout: '/admin',
+    path: '/associate-rejected-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AssociateRejectedLead />,
+    secondary: true,
+  },
+  ] : []),
+
+  
+  
+
+ 
+  ...(isAdmin() ? [
+    {
+      name: 'Loan Types',
+      layout: '/admin',
+      icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      path: '/loan',
+      component: <Loans />,
+    },
+    {
+      name: 'Register Associate',
+      layout: '/admin',
+      path: '/registerAssociate',
+      icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
+      component: <RegisterBusinessAssociate />,
+    },
+    {
+      name: 'All Leads',
+      layout: '/admin',
+      icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      path: '/all-leads',
+      component: <AllLeads />,
+    },
+  ] : []),
+
+ ...(isAssociate() || isAdmin() ? [
+  {
+    name: 'Lead Detail',
+    layout: '/admin',
+    path: '/lead-detail/:id',
+    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+    component: <LeadDetail />,
+  }, 
+  {
+    name: 'Add Lead',
+    layout: '/admin',
+    path: '/add-lead',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: <AddLeadForm />,
+    secondary: true,
+  },
+ ]:[]),
+ 
+  {
+    name: 'Sign In',
+    layout: '/auth',
+    path: '/sign-in',
+    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
+    component: <SignInCentered />,
+  },
+  
+  
+];
+
+export default routes;
+
+
+
+
+
+// {
+  //   name: 'RTL Admin',
+  //   layout: '/rtl',
+  //   path: '/rtl-default',
+  //   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+  //   component: <RTL />,
+  // },
+   // {
+  //   name: 'Data Tables',
+  //   layout: '/admin',
+  //   icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+  //   path: '/data-tables',
+  //   component: <DataTables />,
+  // },
   // {
+
+  //   name: 'Profile',
+  //   layout: '/admin',
+  //   path: '/profile',
+  //   icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+  //   component: <Profile />,
+  // },
+
+   // {
   //   name: 'Dashboard',
   //   layout: '/admin',
   //   path: '/default',
@@ -74,146 +241,3 @@ const routes = [
   //   component: <Register />,
   //   secondary: true,
   // },
-
-  {
-    name: 'Associate Dashboard',
-    layout: '/admin',
-    path: '/associate-dashboard',
-    component: <AssociateDashboard />,
-  },
-
-  {
-    name: 'Associate All Leads',
-    layout: '/admin',
-    path: '/associate-all-lead',
-    component: <AssocitaeAllLeads />,
-  },
-
-  {
-    name: 'All Leads',
-    layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/all-leads',
-    component: <AllLeads />,
-  },
-
-  {
-    name: 'Add Lead',
-    layout: '/admin',
-    path: '/add-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <AddLeadForm />,
-    secondary: true,
-  },
-  {
-    name: 'Pending Lead',
-    layout: '/admin',
-    path: '/associate-pending-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <AssociatePendingLeads />,
-    secondary: true,
-  },
-  {
-    name: 'Sanction Lead',
-    layout: '/admin',
-    path: '/associate-sanction-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <AssociateSanctionLead />,
-    secondary: true,
-  },
-  {
-    name: 'Disbarsment Lead',
-    layout: '/admin',
-    path: '/associate-disbarsed-lead',
-    component: <AssociateDisbarsement />,
-    secondary: true,
-  },
-  {
-    name: 'Rejected Lead',
-    layout: '/admin',
-    path: '/associate-rejected-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <AssociateRejectedLead />,
-    secondary: true,
-  },
-  {
-    name: 'Loan Types',
-    layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/loan',
-    component: <Loans />,
-  },
-  {
-    name: 'Lead Detail',
-    layout: '/admin',
-    path: '/lead-detail/:id',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    component: <LeadDetail />,
-  }, 
-  // {
-  //   name: 'Data Tables',
-  //   layout: '/admin',
-  //   icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-  //   path: '/data-tables',
-  //   component: <DataTables />,
-  // },
-  // {
-
-  //   name: 'Profile',
-  //   layout: '/admin',
-  //   path: '/profile',
-  //   icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-  //   component: <Profile />,
-  // },
-  {
-    name: 'Sign In',
-    layout: '/auth',
-    path: '/sign-in',
-    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: <SignInCentered />,
-  },
-  {
-    name: 'Register Associate',
-    layout: '/admin',
-    path: '/registerAssociate',
-    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: <RegisterBusinessAssociate/>,
-  }
-  // {
-  //   name: 'RTL Admin',
-  //   layout: '/rtl',
-  //   path: '/rtl-default',
-  //   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-  //   component: <RTL />,
-  // },
-];
-
-export default routes;
