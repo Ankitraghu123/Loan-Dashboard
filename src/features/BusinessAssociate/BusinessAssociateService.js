@@ -23,10 +23,15 @@ const GetAllAssociates= async (data)=>{
     return response.data
 }
 
+const GetAllLeadsByAssociate = async (id)=>{
+    const response = await axios.get(`${base_url}lead/${id}/all`)
+    return response.data
+}
 
 
 
 
-const businessAssociateService = {LoginAssociate,GetAllAssociates,RegisterAssociate}
+
+const businessAssociateService = {LoginAssociate,GetAllAssociates,RegisterAssociate,GetAllLeadsByAssociate}
 
 export default businessAssociateService

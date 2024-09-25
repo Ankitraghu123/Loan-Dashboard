@@ -4,6 +4,9 @@ import { LoginAssociate } from 'features/BusinessAssociate/BusinessAssociateSlic
 import { Card, Form, Button, Row, Col } from '@themesberg/react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { RegisterAssociate } from 'features/BusinessAssociate/BusinessAssociateSlice';
+import {
+    Box,
+  } from '@chakra-ui/react';
 
 const AssociateRegisterForm = () => {
     const dispatch = useDispatch()
@@ -23,13 +26,18 @@ const AssociateRegisterForm = () => {
         
     }
 
-  return (
-    <Card border="light" className="bg-white shadow-sm mb-4">
+  return ( 
+    <Card  flexDirection="column"
+    w="100%"
+    px="0px"
+    overflowX={{ sm: 'scroll', lg: 'hidden' }}>
     <Card.Body>
         <h5 className="mb-4">Associate Details</h5>
-        <Form >
+       <Box>
+
+       <Form >
             <Row>
-                <Col md={6} className="mb-3">
+                <Col md={12} className="mb-3">
                     <Form.Group id="contactPersonName">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -44,7 +52,7 @@ const AssociateRegisterForm = () => {
                 </Col>
             </Row>
             <Row>
-                <Col md={6} className="mb-3">
+                <Col md={12} className="mb-3">
                     <Form.Group id="email">
                         <Form.Label> Email</Form.Label>
                         <Form.Control
@@ -57,7 +65,7 @@ const AssociateRegisterForm = () => {
                         />
                     </Form.Group>
                 </Col>
-                <Col md={6} className="mb-3">
+                <Col md={12} className="mb-3">
                     <Form.Group id="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -78,6 +86,7 @@ const AssociateRegisterForm = () => {
                 </Button>
             </div>
         </Form>
+       </Box>
     </Card.Body>
 </Card>
   )

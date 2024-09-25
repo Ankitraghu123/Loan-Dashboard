@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Flex,
@@ -30,72 +30,68 @@ import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { GetAllLeads, DeleteLead, EditLead } from 'features/Lead/leadSlice';
 import { Link } from 'react-router-dom';
 import { GetAllLoans } from 'features/LoanType/loanTypeSlice';
-import { toast } from 'react-toastify';
 
-const AllLeads = () => {
-  const dispatch = useDispatch();
-  const tableData = useSelector((state) => state?.lead?.AllLeads?.data);
-  const allLoanTypes = useSelector((state) => state?.loanType?.allLoanTypes); // Assuming you have loan types data
-  const {editedLead,deletedLead} = useSelector(state => state.lead)
-  const textColor = useColorModeValue('secondaryGray.900', 'white');
-  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedLead, setSelectedLead] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    mobileNumber: '',
-    alternateMobileNumber: '',
-    email: '',
-    loanType: '',
-    businessAssociate: '',
-    referralName: '',
-    lastAppliedBank: '',
-    lastRejectionReason: ''
-  });
-  const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    dispatch(GetAllLeads());
-    dispatch(GetAllLoans())
-    // Fetch loan types if necessary
-  }, [dispatch,editedLead,deletedLead]);
-
-  useEffect(() => {
-    if (selectedLead) {
-      setFormData({
-        name: selectedLead.name || '',
-        mobileNumber: selectedLead.mobileNumber || '',
-        alternateMobileNumber: selectedLead.alternateMobileNumber || '',
-        email: selectedLead.email || '',
-        loanType: selectedLead.loanType?._id || '',
-        businessAssociate: selectedLead.businessAssociate || '',
-        referralName: selectedLead.referralName || '',
-        lastAppliedBank: selectedLead.lastAppliedBank || '',
-        lastRejectionReason: selectedLead.lastRejectionReason || ''
-      });
-    }
-  }, [selectedLead]);
-
-  const handleDelete = (id) => {
-    dispatch(DeleteLead(id));
-  };
-
-  const handleEdit = () => {
-    // Add validation logic if necessary
-    dispatch(EditLead({ id: selectedLead._id, ...formData }));
-    onClose();
-  };
-
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  return (
-    <Card flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+const LeadTable= ({tableData,tableName}) => {
+    const dispatch = useDispatch()
+    const allLoanTypes = useSelector((state) => state?.loanType?.allLoanTypes); // Assuming you have loan types data
+    const {editedLead,deletedLead} = useSelector(state => state.lead)
+    const textColor = useColorModeValue('secondaryGray.900', 'white');
+    const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [selectedLead, setSelectedLead] = useState(null);
+    const [formData, setFormData] = useState({
+      name: '',
+      mobileNumber: '',
+      alternateMobileNumber: '',
+      email: '',
+      loanType: '',
+      businessAssociate: '',
+      referralName: '',
+      lastAppliedBank: '',
+      lastRejectionReason: ''
+    });
+    const [errors, setErrors] = useState({});
+    useEffect(() => {
+      dispatch(GetAllLoans())
+      // Fetch loan types if necessary
+    }, [dispatch,editedLead,deletedLead]);
+  
+    useEffect(() => {
+      if (selectedLead) {
+        setFormData({
+          name: selectedLead.name || '',
+          mobileNumber: selectedLead.mobileNumber || '',
+          alternateMobileNumber: selectedLead.alternateMobileNumber || '',
+          email: selectedLead.email || '',
+          loanType: selectedLead.loanType?._id || '',
+          businessAssociate: selectedLead.businessAssociate || '',
+          referralName: selectedLead.referralName || '',
+          lastAppliedBank: selectedLead.lastAppliedBank || '',
+          lastRejectionReason: selectedLead.lastRejectionReason || ''
+        });
+      }
+    }, [selectedLead]);
+  
+    const handleDelete = (id) => {
+      dispatch(DeleteLead(id));
+    };
+  
+    const handleEdit = () => {
+      // Add validation logic if necessary
+      dispatch(EditLead({ id: selectedLead._id, ...formData }));
+      onClose();
+    };
+  
+    const changeHandler = (e) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+  
+    return (
+      <Card flexDirection="column" w="100%" px="0px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
-          Leads Table
+          {tableName}
         </Text>
         <Menu />
       </Flex>
@@ -127,7 +123,7 @@ const AllLeads = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {tableData?.map((row) => (
+            {tableData?.data?.map((row) => (
               <Tr key={row._id}>
                 <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
                   <Text color={textColor} fontSize="sm" fontWeight="700">
@@ -137,7 +133,7 @@ const AllLeads = () => {
                 <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.email}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.loanType?.loanName}</Td>
-                <Td fontSize={{ sm: '14px' }}>{row.businessAssociate}</Td>
+                <Td fontSize={{ sm: '14px' }}>{row.businessAssociate.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
                 <Td>
                   <Button onClick={() => { setSelectedLead(row); onOpen(); }}>
@@ -152,7 +148,7 @@ const AllLeads = () => {
           </Tbody>
         </Table>
       </Box>
-
+  
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -221,8 +217,8 @@ const AllLeads = () => {
               <FormLabel>Business Associate</FormLabel>
               <Input
                 name="businessAssociate"
-                value={formData.businessAssociate}
-                onChange={changeHandler}
+                value={formData.businessAssociate.name}
+              //   onChange={changeHandler}
                 placeholder="Enter Business Associate"
               />
             </FormControl>
@@ -262,7 +258,8 @@ const AllLeads = () => {
         </ModalContent>
       </Modal>
     </Card>
-  );
-};
-
-export default AllLeads;
+    )
+  }
+  
+  export default LeadTable
+  

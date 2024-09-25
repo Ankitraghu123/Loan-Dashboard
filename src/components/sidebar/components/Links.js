@@ -69,7 +69,7 @@ export function SidebarLinks(props) {
                           : textColor
                       }
                       me='18px'>
-                      {route.icon}
+                      {/* {route.icon} */}
                     </Box>
                     <Text
                       me='auto'

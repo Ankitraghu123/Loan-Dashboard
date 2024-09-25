@@ -9,11 +9,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Timeline from './Timeline';
+import { isAssociate } from 'utils/config';
+import { isAdmin } from 'utils/config';
 
 const LeadDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [isAdmin,setIsAdmin]= useState(false)
+  // const [isAdmin(),setIsAdmin]= useState(false)
 
   const callData = useSelector(state => state.callRecords?.callRecords?.data)
   const meetingData = useSelector(state => state.meetingRecords?.meetingByLead?.data)
@@ -122,10 +124,10 @@ console.log(dateTimeFormat(isoDateString));
 
   return (
    <>
-    <Flex justify="center" align="flex-start" wrap="wrap" gap="20px" mt="20px">
+    <Flex justify="center" align="flex-start" wrap="wrap" gap="20px" style={{marginTop:"80px"}}>
       {/* First Card */}
       <Card 
-  style={{ width: isAdmin ? '400px' : '100%' }} 
+  style={{ width: isAdmin() ? '400px' : '500px' }} 
   align="center"
   p={4} 
 //   border="1px solid" 
@@ -157,22 +159,22 @@ console.log(dateTimeFormat(isoDateString));
         <Text color={textColorSecondary}>Mobile:</Text>
         <Text color={textColorPrimary}>{currentLead?.mobileNumber}</Text>
       </Flex>
-      <Flex justify="space-between" mb="2">
+      {!isAssociate() ? <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Alternate Mobile:</Text>
         <Text color={textColorPrimary}>{currentLead?.alternateMobileNumber || 'N/A'}</Text>
-      </Flex>
+      </Flex> : null}
       <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Email:</Text>
         <Text color={textColorPrimary}>{currentLead?.email}</Text>
       </Flex>
-      <Flex justify="space-between" mb="2">
+     {!isAssociate() ?  <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Business Associate:</Text>
         <Text color={textColorPrimary}>{currentLead?.businessAssociate}</Text>
-      </Flex>
-      <Flex justify="space-between" mb="2">
+      </Flex> : null}
+      {/* <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Referral Name:</Text>
         <Text color={textColorPrimary}>{currentLead?.referralName}</Text>
-      </Flex>
+      </Flex> */}
       <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Last Applied Bank:</Text>
         <Text color={textColorPrimary}>{currentLead?.lastAppliedBank}</Text>
@@ -184,7 +186,7 @@ console.log(dateTimeFormat(isoDateString));
     </Flex>
   </Box>
 
-  <Flex w="max-content" mx="auto" mt="26px">
+ {!isAssociate() ?  <Flex w="max-content" mx="auto" mt="26px">
     <Flex mx="auto" me="60px" align="center" direction="column">
       <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
         {totalCallCounts}
@@ -209,10 +211,71 @@ console.log(dateTimeFormat(isoDateString));
         Status
       </Text>
     </Flex>
-  </Flex>
+  </Flex> : null}
 </Card>
 
-     {isAdmin ?  <Card 
+{isAssociate() ? <Card 
+  style={{ width: isAdmin() ? '400px' : '500px' }} 
+  align="center"
+  p={4} 
+//   border="1px solid" 
+  borderColor="gray.200" 
+  borderRadius="xl"
+>
+  {/* <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="10px">
+    {currentLead?.name}
+  </Text>
+  <Text color={textColorSecondary} fontSize="sm">
+    {currentLead?.loanType?.loanName}
+  </Text> */}
+
+  {/* Additional Lead Details */}
+  <Box mt="20px" w="full">
+    <Text fontWeight="bold" fontSize="lg" color={textColorPrimary}>
+      Lead Details
+    </Text>
+    <Flex direction="column" mt="10px" w="full">
+      <Flex justify="space-between" mb="2">
+        <Text color={textColorSecondary}>Current Bank</Text>
+        <Text color={textColorPrimary}>SBI</Text>
+      </Flex>
+      {/* <Flex justify="space-between" mb="2">
+        <Text color={textColorSecondary}>Current ROI</Text>
+        <Text color={textColorPrimary}>5%</Text>
+      </Flex> */}
+      <Flex justify="space-between" mb="2">
+        <Text color={textColorSecondary}>Last Status Of File</Text>
+        <Text color={textColorPrimary}>PD</Text>
+      </Flex>
+      <Flex justify="space-between" mb="2">
+        <Text color={textColorSecondary}>My Estimated Payout</Text>
+        <Text color={textColorPrimary}>5000</Text>
+      </Flex>
+      <Flex justify="space-between" mb="2">
+        <Text color={textColorSecondary}>Total Documents</Text>
+        <Text color={textColorPrimary}>10</Text>
+      </Flex>
+      <Flex justify="space-between" mb="2">
+        <Text color={textColorSecondary}>Pending Documents</Text>
+        <Text color={textColorPrimary}>2</Text>
+      </Flex>
+    </Flex>
+  </Box>
+
+  <Flex w="full" mx="auto" mt="16px">
+    
+    
+    
+      
+      <button  className='btn1' color={textColorPrimary} fontSize="md" fontWeight="800">
+        View Docs
+      </button>
+   
+  </Flex>
+</Card> : null}
+
+
+     {isAdmin() ?  <Card 
         style={{ width: '300px' }} 
         p={2} 
         border="none"
@@ -275,7 +338,7 @@ console.log(dateTimeFormat(isoDateString));
       </Card> : null}
 
       {/* Meeting Form */}
-     {isAdmin?  <Card 
+     {isAdmin()?  <Card 
         style={{ width: '300px' }} 
         p={2} 
         border="none"
@@ -338,7 +401,7 @@ console.log(dateTimeFormat(isoDateString));
         </Box>
       </Card> : null}
 
-      {isAdmin ? <Card
+      {isAdmin() ? <Card
       w="45%"
       px="0px"
       overflowX={{ sm: 'scroll', lg: 'scroll' }}
@@ -386,7 +449,7 @@ console.log(dateTimeFormat(isoDateString));
         </Table>
       </Box>
     </Card> : null}
-    {isAdmin ? <Card
+    {isAdmin() ? <Card
       w="45%"
       overflowX={{ sm: 'scroll', lg: 'scroll' }}
     >

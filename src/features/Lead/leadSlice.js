@@ -1,5 +1,6 @@
 import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import LeadService from "./leadService";
+import { toast } from "react-toastify";
 
 
 export const AddLead = createAsyncThunk('lead/add',async(data,thunkApi)=>{
@@ -52,9 +53,9 @@ export const GetPendingLeadByAssociate = createAsyncThunk('lead/pending/associat
     }
 })
 
-export const GetDispersedLeadByAssociate = createAsyncThunk('lead/dispersed/associate',async(id,thunkApi)=>{
+export const GetSanctionedLeadByAssociate = createAsyncThunk('lead/dispersed/associate',async(id,thunkApi)=>{
     try{
-        return await LeadService.GetDispersedLeadByAssociate(id)
+        return await LeadService.GetSanctionedLeadByAssociate(id)
     }catch(err){
         return thunkApi.rejectWithValue(err)
     }
@@ -92,6 +93,9 @@ export const LeadSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.leadAdded = action.payload
+            if(state.isSuccess){
+                toast.success("lead Added successfully")
+            }
            
         })
         .addCase(AddLead.rejected,(state,action)=>{
@@ -99,6 +103,10 @@ export const LeadSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.leadAdded = null
+            if(state.isError){
+                console.log(action)
+                toast.error(action.payload.response.data.message)
+            }
 
         })
         .addCase(GetAllLeads.pending,(state)=>{
@@ -181,20 +189,20 @@ export const LeadSlice = createSlice({
             state.pendingLead = null
 
         })
-        .addCase(GetDispersedLeadByAssociate.pending,(state)=>{
+        .addCase(GetSanctionedLeadByAssociate.pending,(state)=>{
             state.isLoading = true
         })
-        .addCase(GetDispersedLeadByAssociate.fulfilled,(state,action)=>{
+        .addCase(GetSanctionedLeadByAssociate.fulfilled,(state,action)=>{
             state.isLoading = false
             state.isSuccess = true
-            state.dispersedLead = action.payload
+            state.sanctionedLead = action.payload
            
         })
-        .addCase(GetDispersedLeadByAssociate.rejected,(state,action)=>{
+        .addCase(GetSanctionedLeadByAssociate.rejected,(state,action)=>{
             state.isLoading = false
             state.isError=true
             state.isSuccess = false
-            state.dispersedLead = null
+            state.sanctionedLead = null
 
         })
         .addCase(GetRejectedLeadByAssociate.pending,(state)=>{

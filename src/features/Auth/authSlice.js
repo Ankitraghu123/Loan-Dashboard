@@ -1,5 +1,6 @@
 import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AuthService from "./authService";
+import { toast } from "react-toastify";
 
 
 export const LoginAdmin = createAsyncThunk('admin/login',async(data,thunkApi)=>{
@@ -35,7 +36,9 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.adminData = action.payload
-           
+           if(state.isSuccess){
+            toast.success('Login Successfully')
+           }
         })
         .addCase(LoginAdmin.rejected,(state,action)=>{
             state.isLoading = false

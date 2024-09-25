@@ -26,8 +26,8 @@ export const isAdmin = () => {
 }
 
 export const isAssociate = () => {
-  const adminToken = localStorage.getItem("associateToken");
-  if(adminToken) return true
+  const associate = localStorage.getItem("associateToken");
+  if(associate) return true
 
   return false
 }

@@ -1,3 +1,25 @@
 p{
     margin-bottom: 0rem !important;
 }
+
+
+.btn1 {
+    width: 100%;
+    /* height: 50px; */
+    border: none;
+    color: white;
+    /* margin-top: 1vmax; */
+    background-color: #38B2AC;
+    border-radius: 4px;
+    /* box-shadow: inset 0 0 0 0  yellow; */
+    transition: ease-out 0.3s;
+    font-size: 16px;
+    outline: none;
+    padding: 10px 10px;
+}
+
+.btn1:hover {
+    box-shadow: inset 400px 0 0 0 #11047A;
+    cursor: pointer;
+    /* color: #000; */
+}

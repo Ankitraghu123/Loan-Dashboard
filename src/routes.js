@@ -20,11 +20,18 @@ import Loans from 'views/loans'
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
-import { AddLeadForm } from 'views/admin/Lead/components/addLeadForm';
+// import Lead from 'views/admin/Lead';
 import AllLeads from 'views/admin/AllLeads/components/AllLeads';
 import LeadDetail from 'views/admin/LeadDetail/components/LeadDetail';
 import AssociateRegisterForm from 'views/admin/RegisterBusinessAssociate/component/AssociateRegisterForm';
-import PendingAssociatesLeads from 'views/admin/AssociatesLead/components/PendingAssociatesLeads';
+import AssociatePendingLeads from 'views/Associates/AssociateLeads/components/AssociatePendingLeads';
+import AssociateDisbarsement from 'views/Associates/AssociateLeads/components/AssociateDisbarsement';
+import AssociateSanctionLead from 'views/Associates/AssociateLeads/components/AssociateSanctionLead';
+import AssociateRejectedLead from 'views/Associates/AssociateLeads/components/AssociateRejectedLead';
+import AssociateDashboard from 'views/Associates/AssociateLeads/components/AssociateDashboard';
+import AssocitaeAllLeads from 'views/Associates/AssociateLeads/components/AssocitaeAllLeads';
+import RegisterBusinessAssociate from 'views/admin/RegisterBusinessAssociate/index';
+import { AddLeadForm } from 'views/admin/Lead/components/addLeadForm';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -67,6 +74,21 @@ const routes = [
   //   component: <Register />,
   //   secondary: true,
   // },
+
+  {
+    name: 'Associate Dashboard',
+    layout: '/admin',
+    path: '/associate-dashboard',
+    component: <AssociateDashboard />,
+  },
+
+  {
+    name: 'Associate All Leads',
+    layout: '/admin',
+    path: '/associate-all-lead',
+    component: <AssocitaeAllLeads />,
+  },
+
   {
     name: 'All Leads',
     layout: '/admin',
@@ -93,7 +115,7 @@ const routes = [
   {
     name: 'Pending Lead',
     layout: '/admin',
-    path: '/pending-lead',
+    path: '/associate-pending-lead',
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -102,13 +124,13 @@ const routes = [
         color="inherit"
       />
     ),
-    component: <PendingAssociatesLeads />,
+    component: <AssociatePendingLeads />,
     secondary: true,
   },
   {
     name: 'Sanction Lead',
     layout: '/admin',
-    path: '/add-lead',
+    path: '/associate-sanction-lead',
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -117,28 +139,20 @@ const routes = [
         color="inherit"
       />
     ),
-    component: <AddLeadForm />,
+    component: <AssociateSanctionLead />,
     secondary: true,
   },
   {
     name: 'Disbarsment Lead',
     layout: '/admin',
-    path: '/add-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <AddLeadForm />,
+    path: '/associate-disbarsed-lead',
+    component: <AssociateDisbarsement />,
     secondary: true,
   },
   {
-    name: 'Rejected Lead By Bank',
+    name: 'Rejected Lead',
     layout: '/admin',
-    path: '/add-lead',
+    path: '/associate-rejected-lead',
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -147,22 +161,7 @@ const routes = [
         color="inherit"
       />
     ),
-    component: <AddLeadForm />,
-    secondary: true,
-  },
-  {
-    name: 'Rejected Lead By Admin',
-    layout: '/admin',
-    path: '/add-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: <AddLeadForm />,
+    component: <AssociateRejectedLead />,
     secondary: true,
   },
   {
@@ -206,7 +205,7 @@ const routes = [
     layout: '/admin',
     path: '/registerAssociate',
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: <AssociateRegisterForm/>,
+    component: <RegisterBusinessAssociate/>,
   }
   // {
   //   name: 'RTL Admin',

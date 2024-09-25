@@ -13,7 +13,8 @@ export function SidebarBrand() {
 
   return (
     <Flex align='center' direction='column'>
-      <HorizonLogo h='26px' w='175px' my='32px' color={logoColor} />
+      {/* <HorizonLogo h='26px' w='175px' my='32px' color={logoColor} /> */}
+      <h2>ASG <span style={{color:'#319795', fontWeight:"700"}}>FINANCE</span> </h2>
       <HSeparator mb='20px' />
     </Flex>
   );

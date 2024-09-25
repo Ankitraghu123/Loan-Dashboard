@@ -30,6 +30,14 @@ export const GetAllAssociates = createAsyncThunk('associate/all',async(thunkApi)
     }
 })
 
+export const GetAllLeadsByAssociate = createAsyncThunk('associate/all/leads',async(id,thunkApi)=>{
+    try{
+        return await businessAssociateService.GetAllLeadsByAssociate(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 
 const initialState = {
     businessAssociate:associateData,
@@ -93,6 +101,23 @@ export const businessAssociateSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.allAssociate = null
+
+        })
+
+        .addCase(GetAllLeadsByAssociate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetAllLeadsByAssociate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.allLeadsByAssociate = action.payload
+           
+        })
+        .addCase(GetAllLeadsByAssociate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.allLeadsByAssociate = null
 
         })
        

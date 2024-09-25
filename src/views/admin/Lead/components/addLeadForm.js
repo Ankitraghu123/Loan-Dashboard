@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetAllLoans } from 'features/LoanType/loanTypeSlice';
 import { AddLead } from 'features/Lead/leadSlice';
 import { GetAllAssociates } from 'features/BusinessAssociate/BusinessAssociateSlice';
+import { FormControl } from 'react-bootstrap';
+import { isAdmin } from 'utils/config';
 
 export const AddLeadForm = () => {
     const dispatch = useDispatch();
@@ -66,7 +68,7 @@ export const AddLeadForm = () => {
                 alternateMobileNumber: "",
                 email: "",
                 loanType: "",
-                businessAssociate: "",
+                businessAssociate: currentAssociate ? currentAssociate._id : "",
                 referralName: "",
                 lastAppliedBank: "",
                 lastRejectionReason: ""
@@ -77,7 +79,7 @@ export const AddLeadForm = () => {
     };
 
     return (
-        <Card border="light" className="bg-white shadow-sm mb-4">
+        <Card border="light" className="bg-white shadow-sm mb-4" style={{marginTop:"80px"}}>
             <Card.Body>
                 <h5 className="mb-4">Add Lead</h5>
                 <Form onSubmit={formHandler}>
@@ -159,10 +161,10 @@ export const AddLeadForm = () => {
                                 </Form.Control>
                             </Form.Group>
                         </Col>
-                       {!currentAssociate ?  <Col md={6} className="mb-3">
+                        <Col md={6} className="mb-3">
                             <Form.Group id="businessAssociate">
                                 <Form.Label>Business Associate</Form.Label>
-                                <Form.Control
+                               {isAdmin() ?  <Form.Control
                                     as="select"
                                     name="businessAssociate"
                                     value={formData.businessAssociate}
@@ -176,27 +178,31 @@ export const AddLeadForm = () => {
                                             {associate.name}
                                         </option>
                                     ))}
-                                </Form.Control>
+                                </Form.Control>: <FormControl type='text' value={currentAssociate.name} />
+}
                             </Form.Group>
-                        </Col> : null}
+                        </Col> 
                     </Row>
                     <Row>
-                        <Col md={6} className="mb-3">
-                            <Form.Group id="referralName">
-                                <Form.Label>Referral Name</Form.Label>
-                                <Form.Control
-                                    name="referralName"
-                                    value={formData.referralName}
-                                    onChange={changeHandler}
-                                    type="text"
-                                    placeholder="Enter Referral Name"
-                                    isInvalid={!!errors.referralName}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.referralName}
-                                </Form.Control.Feedback>
-                            </Form.Group>
-                        </Col>
+                    <Col md={6} className="mb-3">
+    <Form.Group id="referralName">
+        <Form.Label>Show Referral Name</Form.Label>
+        <Form.Select
+            name="referralName"
+            value={formData.referralName}
+            onChange={changeHandler}
+            isInvalid={!!errors.referralName}
+        >
+            <option value="">Select Yes or No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+            {errors.referralName}
+        </Form.Control.Feedback>
+    </Form.Group>
+</Col>
+
                         <Col md={6} className="mb-3">
                             <Form.Group id="lastAppliedBank">
                                 <Form.Label>Last Applied Bank</Form.Label>

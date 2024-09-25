@@ -13,7 +13,7 @@ const GetAllLeads = async (data)=>{
 }
 
 const GetSingleLead = async (id)=>{
-    const response = await axios.get(`${base_url}lead/${id}`)
+    const response = await axios.get(`${base_url}lead/${id}`,config)
     return response.data
 }
 
@@ -32,8 +32,8 @@ const GetPendingLeadByAssociate = async (id)=>{
     return response.data
 }
 
-const GetDispersedLeadByAssociate = async (id)=>{
-    const response = await axios.get(`${base_url}lead/${id}/dispersed`)
+const GetSanctionedLeadByAssociate = async (id)=>{
+    const response = await axios.get(`${base_url}lead/${id}/sanctioned`)
     return response.data
 }
 
@@ -45,6 +45,6 @@ const GetRejectedLeadByAssociate = async (id)=>{
 
 
 
-const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetDispersedLeadByAssociate,GetRejectedLeadByAssociate}
+const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetSanctionedLeadByAssociate,GetRejectedLeadByAssociate}
 
 export default LeadService

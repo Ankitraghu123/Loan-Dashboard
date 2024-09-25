@@ -159,7 +159,7 @@ export default function HeaderLinks(props) {
       </Menu>
 
       <Menu>
-        <MenuButton p="0px">
+        {/* <MenuButton p="0px">
           <Icon
             mt="6px"
             as={MdInfoOutline}
@@ -168,8 +168,8 @@ export default function HeaderLinks(props) {
             h="18px"
             me="10px"
           />
-        </MenuButton>
-        <MenuList
+        </MenuButton> */}
+        {/* <MenuList
           boxShadow={shadow}
           p="20px"
           me={{ base: '30px', md: 'unset' }}
@@ -180,8 +180,8 @@ export default function HeaderLinks(props) {
           minW={{ base: 'unset' }}
           maxW={{ base: '360px', md: 'unset' }}
         >
-          <Image src={navImage} borderRadius="16px" mb="28px" />
-          <Flex flexDirection="column">
+          <Image src={navImage} borderRadius="16px" mb="28px" /> */}
+          {/* <Flex flexDirection="column">
             <Link w="100%" href="https://horizon-ui.com/pro">
               <Button w="100%" h="44px" mb="10px" variant="brand">
                 Buy Horizon UI PRO
@@ -217,7 +217,7 @@ export default function HeaderLinks(props) {
               </Button>
             </Link>
           </Flex>
-        </MenuList>
+        </MenuList> */}
       </Menu>
 
       <Button
@@ -258,7 +258,7 @@ export default function HeaderLinks(props) {
           bg={menuBg}
           border="none"
         >
-          <Flex w="100%" mb="0px">
+          {/* <Flex w="100%" mb="0px">
             <Text
               ps="20px"
               pt="16px"
@@ -272,8 +272,8 @@ export default function HeaderLinks(props) {
             >
               👋&nbsp; Hey, Adela
             </Text>
-          </Flex>
-          <Flex flexDirection="column" p="10px">
+          </Flex> */}
+          {/* <Flex flexDirection="column" p="10px">
             <MenuItem
               _hover={{ bg: 'none' }}
               _focus={{ bg: 'none' }}
@@ -299,7 +299,7 @@ export default function HeaderLinks(props) {
             >
               <Text fontSize="sm">Log out</Text>
             </MenuItem>
-          </Flex>
+          </Flex> */}
         </MenuList>
       </Menu>
     </Flex>
