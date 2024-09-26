@@ -77,23 +77,13 @@ const AssociateDashboard = () => {
          <Link to="/admin/associate-sanction-lead">
          <MiniStatistics
             name='loan sanctioned'
-            startContent={
-                <IconBox
-                  w='56px'
-                  h='56px'
-                  bg={boxBg}
-                  icon={
-                    <Icon w='32px' h='32px' as={MdAttachMoney} color={brandColor} />
-                  }
-                />
-              }
             value={sanctionedLeads ? sanctionedLeads?.data?.length : 0}
           />
          </Link>
          <Link to="/admin/associate-disbarsed-lead">
          <MiniStatistics name='loan dispersed' value='0' />
          </Link>
-          <MiniStatistics name='Total Earning' value='10000' />
+          <MiniStatistics name='Total Earning' value='0' />
 
         </SimpleGrid>
   

@@ -55,9 +55,11 @@ const AddLoanType = () => {
               size="md"
             />
           </FormControl>
-          <Button colorScheme="blue" type="submit">
+          <div className='d-flex'>
+          <button className='submitBtn' type="submit">
             Add Loan Type
-          </Button>
+          </button>
+          </div>
         </form>
       </Box>
     </Card>

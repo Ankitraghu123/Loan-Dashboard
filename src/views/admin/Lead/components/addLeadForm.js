@@ -251,10 +251,10 @@ export const AddLeadForm = () => {
                         </Col>
                     </Row>
 
-                    <div className="mt-3">
-                        <Button variant="primary" type="submit">
+                    <div className="mt-3 d-flex">
+                        <button className='submitBtn' type="submit">
                             Add Lead
-                        </Button>
+                        </button>
                     </div>
                 </Form>
             </Card.Body>

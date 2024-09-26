@@ -139,10 +139,10 @@ const AssociateRegisterForm = () => {
                         />
                     </Form.Group>
                 </Col>
-            <div className="mt-3">
-                <Button variant="primary" onClick={formHandler}>
+            <div className="mt-3 d-flex">
+                <button className='submitBtn' onClick={formHandler}>
                     Add Business Associate
-                </Button>
+                </button>
             </div>
         </Form>
        </Box>

@@ -5,6 +5,7 @@ import { Button, Card, Flex, Text, Table, Thead, Tbody, Tr, Th, Td, useDisclosur
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'; // Adjust imports as necessary
 import { EditDocuments } from 'features/LoanType/loanTypeSlice';
 import { deleteDocuments } from 'features/LoanType/loanTypeSlice';
+import { Col, Row } from 'react-bootstrap';
 
 const DocumentTable = () => {
     const dispatch = useDispatch();
@@ -52,33 +53,39 @@ const DocumentTable = () => {
     });
 
     return (
-        <Card flexDirection="column" w="100%" px="0px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-            <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
+        <Card flexDirection="column" w="100%" mt="80px" px="10px" py="10px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+            <Flex px="5px" mb="8px" justifyContent="space-between" align="center">
                 <Text fontSize="22px" fontWeight="700" lineHeight="100%">
                     All Documents List
                 </Text>
                 </Flex>
-                <Flex px="25px" mb="8px" gap="10px">
-                <FormControl>
-                    <FormLabel>Search by Loan Type</FormLabel>
+                {/* <Flex px="25px" mb="8px" gap="10px"> */}
+             <Row md={12} className='px-2'>
+             <Col md={6}>
+               {/* <FormControl> */}
+                    <FormLabel>Loan Type</FormLabel>
                     <Input
                         placeholder="Enter loan type"
                         value={loanTypeSearch}
                         onChange={(e) => setLoanTypeSearch(e.target.value)}
                     />
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Search by Loan Person Type</FormLabel>
+                {/* </FormControl> */}
+               </Col>
+                <Col md={6}>
+                {/* <FormControl> */}
+                    <FormLabel>Loan Person Type</FormLabel>
                     <Input
                         placeholder="Enter loan person type"
                         value={loanPersonTypeSearch}
                         onChange={(e) => setLoanPersonTypeSearch(e.target.value)}
                     />
-                </FormControl>
-            </Flex>
+                {/* </FormControl> */}
+                </Col>
+             </Row>
+            {/* </Flex> */}
                 {/* Add your Menu here if needed */}
             
-            <Table variant="simple" color="gray.500" mb="24px" mt="12px">
+            <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
                 <Thead>
                     <Tr>
                         <Th>Name</Th>
@@ -96,16 +103,18 @@ const DocumentTable = () => {
                             <Td>{row.loanType}</Td>
                             <Td>{row.loanPersonType}</Td>
                             <Td>
-                                <Button onClick={() => { 
+                               <div className='d-flex'>
+                               <Button onClick={() => { 
                                     setSelectedDoc(row); 
                                     setFormData({ name: row.name, loanType: row.loanType._id, loanPersonType: row.loanPersonType }); // Fill the form
                                     onOpen(); 
                                 }}>
                                     <EditIcon />
                                 </Button>
-                                <Button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4">
+                                <button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4" className='deletebtn'>
                                     <DeleteIcon />
-                                </Button>
+                                </button>
+                               </div>
                             </Td>
                         </Tr>
                     ))}

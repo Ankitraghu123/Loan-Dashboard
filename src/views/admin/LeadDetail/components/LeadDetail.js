@@ -216,10 +216,10 @@ console.log(dateTimeFormat(isoDateString));
       </Text>
     </Flex>
   </Flex>
-  <Link to={`/admin/view-docs/${id}`}>
-  <Button type="submit" colorScheme="blue" mt={4}>
+  <Link to={`/admin/view-docs/${id}`} className='w-100 d-flex'>
+  <button className='submitBtn' type="submit"  mt={4}>
             View Dcouments
-          </Button>
+          </button>
   </Link>
 </>
   : null}
@@ -273,13 +273,13 @@ console.log(dateTimeFormat(isoDateString));
     </Flex>
   </Box>
 
-  <Flex w="full" mx="auto" mt="48px">
+  <Flex w="full" mx="auto" mt="40px">
     
     
     
-  <Link to={`/admin/view-docs/${id}`}>
-      <button  className='btn1' color={textColorPrimary} fontSize="md" fontWeight="800">
-        View Docs
+  <Link to={`/admin/view-docs/${id}`} className='d-flex w-100'>
+      <button  className='submitBtn' color={textColorPrimary} fontSize="md" fontWeight="800">
+        View Documents
       </button>
       </Link>
   </Flex>
@@ -342,9 +342,11 @@ console.log(dateTimeFormat(isoDateString));
             />
           </FormControl>
 
-          <Button type="submit" colorScheme="blue" mt={9}>
+         <div className='d-flex mt-4'>
+         <button className='submitBtn' type="submit" colorScheme="blue" mt={9}>
             Add Call Record
-          </Button>
+          </button>
+         </div>
         </Box>
       </Card> : null}
 
@@ -406,16 +408,18 @@ console.log(dateTimeFormat(isoDateString));
             />
           </FormControl>
 
-          <Button type="submit" colorScheme="blue" mt={9}>
+          <div className='d-flex mt-4'>
+          <button className='submitBtn' type="submit" colorScheme="blue" mt={9}>
             Add Meeting
-          </Button>
+          </button>
+          </div>
         </Box>
       </Card> : null}
 
       {isAdmin() ? <Card
-      w="45%"
-      px="0px"
-      overflowX={{ sm: 'scroll', lg: 'scroll' }}
+      // w="45%"
+      px="10px"
+      overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
          <Text color={textColor} px="20px" pt="10px" fontSize="22px" fontWeight="700" lineHeight="100%">
           Call Table
@@ -461,8 +465,10 @@ console.log(dateTimeFormat(isoDateString));
       </Box>
     </Card> : null}
     {isAdmin() ? <Card
-      w="45%"
-      overflowX={{ sm: 'scroll', lg: 'scroll' }}
+      // w="45%"
+      px="10px"
+      mb="20px"
+      overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
          <Text color={textColor} px="20px" pt="10px" fontSize="22px" fontWeight="700" lineHeight="100%">
           Meeting Table

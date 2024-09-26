@@ -92,15 +92,14 @@ const AllLeads = () => {
   };
 
   return (
-    <Card flexDirection="column" w="100%" px="0px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+    <Card flexDirection="column" w="100%" px="10px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
           Leads Table
         </Text>
-        <Menu />
       </Flex>
       <Box>
-        <Table variant="simple" color="gray.500" mb="24px" mt="12px">
+        <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             <Tr>
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
@@ -140,12 +139,14 @@ const AllLeads = () => {
                 <Td fontSize={{ sm: '14px' }}>{row.businessAssociate?.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
                 <Td>
-                  <Button onClick={() => { setSelectedLead(row); onOpen(); }}>
+                 <div className='d-flex'>
+                 <Button onClick={() => { setSelectedLead(row); onOpen(); }}>
                     <EditIcon />
                   </Button>
-                  <Button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4">
+                  <button className='deletebtn' onClick={() => handleDelete(row._id)} colorScheme="red" ml="4">
                     <DeleteIcon />
-                  </Button>
+                  </button>
+                 </div>
                 </Td>
               </Tr>
             ))}

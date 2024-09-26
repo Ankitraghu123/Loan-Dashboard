@@ -19,11 +19,12 @@ export default function Default(props) {
   const textColorSecondary = "secondaryGray.600";
 
   return (
-    <Card py='15px'>
+    <Card py='15px '>
       <Flex
         my='auto'
         h='100%'
-        align={{ base: "center", xl: "start" }}
+        className="text-center"
+        align={{ base: "center", xl: "center" }}
         justify={{ base: "center", xl: "center" }}>
         {startContent}
 

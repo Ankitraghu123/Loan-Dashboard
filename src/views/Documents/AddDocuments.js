@@ -91,9 +91,9 @@ const AddDocuments = () => {
        
     </Form.Group>
                         </Col>
-                        <Button variant="primary" type="submit">
+                        <button className='submitBtn' type="submit">
                             Add Document
-                        </Button>
+                        </button>
                         </Row>
                         </Form>
                         <DocumentTable/>

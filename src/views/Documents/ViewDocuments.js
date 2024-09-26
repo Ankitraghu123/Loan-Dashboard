@@ -85,7 +85,7 @@ const ViewDocuments = () => {
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }} gap='20px' mb='20px'>
+      <SimpleGrid columns={{ base: 2, md: 2, lg: 3, "2xl": 6 }} gap='20px' mb='20px'>
         <MiniStatistics name='Total Documents' value={totalDocs} />
         <MiniStatistics name='Pending Documents' value={pendingDocs?.length} />
       </SimpleGrid>
@@ -125,9 +125,9 @@ const ViewDocuments = () => {
       )}
 
       {selectedDoc && selectedFile && (
-        <Button mt={5} colorScheme="blue" onClick={handleSubmit}>
+        <button className='submitBtn w-100 mt-4' mt={5} colorScheme="blue" onClick={handleSubmit}>
           Upload Document
-        </Button>
+        </button>
       )}
 
       <Box mt={10}>
@@ -135,34 +135,52 @@ const ViewDocuments = () => {
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={4}>
           {completedDocs?.length > 0 ? (
             completedDocs.map((doc, index) => (
-              <Box key={index} borderWidth='1px' borderRadius='lg' p={4}>
-                <Flex>
-                  <Box>
+              <Box key={index} borderWidth='1px' borderRadius='lg' p={4} className=' d-flex justify-content-center align-items-center '>
+                <div className='w-100'>
+               <div className='d-flex flex-column justify-content-center align-items-center'>
+               <Flex >
+                  <Box className='d-flex flex-column align-items-center'>
                     <Text fontWeight="bold">{doc.name}</Text>
                     <Text color="gray.500">Status: {doc.status}</Text>
                   </Box>
-                  {
-                    isAdmin() ?
-                      <>
-                        <DeleteIcon onClick={() => deleteHandler(doc._id)} />
-                        <EditIcon ml={2} colorScheme="yellow" onClick={() => handleEditClick(doc._id)}/> 
-                      </>
-                    : null
-                  }
+                 
                     
                   
                 </Flex>
                 {doc.file && (
                   <>
                     {doc.file.endsWith('.jpg') || doc.file.endsWith('.jpeg') || doc.file.endsWith('.png') ? (
-                      <Image src={doc.file} alt={doc.name} boxSize="100px" objectFit="cover" />
+                      <>
+                      <Image src={doc.file} alt={doc.name} boxSize="120px" objectFit="cover" />
+                     
+                    </>
                     ) : (
-                      <Text color="blue.500">
+                      null
+                    )}
+                     <Text color="blue.500">
                         <a href={doc.file} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
                       </Text>
-                    )}
                   </>
                 )}
+               </div>
+               <div className='d-flex justify-content-between my-2'>
+<Text>
+      {new Date(doc.date).toLocaleDateString('en-CA')} 
+    </Text>
+    <Text>
+      {new Date(doc.date).toLocaleTimeString('en-GB')} 
+    </Text>
+</div>
+
+{
+                    isAdmin() ?
+                      <div className='d-flex justify-content-between'>
+                        <DeleteIcon className='text-danger' onClick={() => deleteHandler(doc._id)} />
+                        <EditIcon ml={2} colorScheme="yellow" onClick={() => handleEditClick(doc._id)}/> 
+                      </div>
+                    : null
+                  }
+                </div>
               </Box>
             ))
           ) : (
