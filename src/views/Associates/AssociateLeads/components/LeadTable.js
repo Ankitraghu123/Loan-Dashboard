@@ -39,6 +39,8 @@ const LeadTable= ({tableData,tableName}) => {
     const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedLead, setSelectedLead] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(''); 
+
     const [formData, setFormData] = useState({
       name: '',
       mobileNumber: '',
@@ -50,6 +52,9 @@ const LeadTable= ({tableData,tableName}) => {
       lastAppliedBank: '',
       lastRejectionReason: ''
     });
+
+    const [itemsPerPage, setItemsPerPage] = useState(5); // Default items per page
+    const [currentPage, setCurrentPage] = useState(1);
     const [errors, setErrors] = useState({});
     useEffect(() => {
       dispatch(GetAllLoans())
@@ -86,6 +91,35 @@ const LeadTable= ({tableData,tableName}) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     };
+
+    const filteredData = tableData?.data?.filter((row) => 
+      row.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.mobileNumber.toString().includes(searchTerm) || // Convert mobile to string
+      row.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.loanType?.loanName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.businessAssociate?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.lastAppliedBank.toLowerCase().includes(searchTerm.toLowerCase())
+    ) ;
+
+  
+    const totalItems = filteredData?.length || 0;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem) || [];
+    
+    const handleNextPage = () => {
+      if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    };
+  
+    const handlePreviousPage = () => {
+      if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+  
+    const handleItemsPerPageChange = (e) => {
+      setItemsPerPage(Number(e.target.value));
+      setCurrentPage(1); // Reset to first page
+    };
   
     return (
       <Card flexDirection="column" w="100%" px="10px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
@@ -93,7 +127,25 @@ const LeadTable= ({tableData,tableName}) => {
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
           {tableName}
         </Text>
+        <Flex mb="4" px="25px">
+        <Input
+          placeholder="Search by Name, Mobile, Email, Loan Type..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </Flex>
+      </Flex>
+
+     
+
+      <Flex mb="4" justifyContent="flex-end" px="25px">
+        <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width="200px">
+          <option value={5}>5 items per page</option>
+          <option value={10}>10 items per page</option>
+          <option value={20}>20 items per page</option>
+        </Select>
+      </Flex>
+      
       <Box>
         <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
@@ -122,7 +174,7 @@ const LeadTable= ({tableData,tableName}) => {
             </Tr>
           </Thead>
           <Tbody>
-            {tableData?.data?.map((row) => (
+            {currentItems?.map((row) => (
               <Tr key={row._id}>
                 <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
                   <Text color={textColor} fontSize="sm" fontWeight="700">
@@ -147,6 +199,18 @@ const LeadTable= ({tableData,tableName}) => {
           </Tbody>
         </Table>
       </Box>
+
+      <Flex justifyContent="space-between" alignItems="center" px="25px" mt="4">
+        <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
+          Previous
+        </Button>
+        <Text>
+          Page {currentPage} of {totalPages}
+        </Text>
+        <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
+          Next
+        </Button>
+      </Flex>
   
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

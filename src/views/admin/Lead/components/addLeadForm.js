@@ -251,7 +251,7 @@ export const AddLeadForm = () => {
                         </Col>
                     </Row>
 
-                    <div className="mt-3 d-flex">
+                    <div className="mt-3">
                         <button className='submitBtn' type="submit">
                             Add Lead
                         </button>

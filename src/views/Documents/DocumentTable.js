@@ -24,6 +24,8 @@ const DocumentTable = () => {
     const [loanTypeSearch, setLoanTypeSearch] = useState('');
     const [loanPersonTypeSearch, setLoanPersonTypeSearch] = useState('');
 
+    const [itemsPerPage, setItemsPerPage] = useState(5); // Default items per page
+    const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         dispatch(GetAllDocuments());
     }, [dispatch,deletedDocs,editedDocs,addedDocs]);
@@ -52,6 +54,25 @@ const DocumentTable = () => {
         return matchesLoanType && matchesLoanPersonType;
     });
 
+    const totalItems = filteredTableData?.length || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredTableData?.slice(indexOfFirstItem, indexOfLastItem) || [];
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1); // Reset to first page
+  };
+
     return (
         <Card flexDirection="column" w="100%" mt="80px" px="10px" py="10px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
             <Flex px="5px" mb="8px" justifyContent="space-between" align="center">
@@ -65,7 +86,7 @@ const DocumentTable = () => {
                {/* <FormControl> */}
                     <FormLabel>Loan Type</FormLabel>
                     <Input
-                        placeholder="Enter loan type"
+                        placeholder="Search loan type"
                         value={loanTypeSearch}
                         onChange={(e) => setLoanTypeSearch(e.target.value)}
                     />
@@ -83,6 +104,13 @@ const DocumentTable = () => {
                 </Col>
              </Row>
             {/* </Flex> */}
+            <Flex mb="4" justifyContent="flex-end" px="25px">
+        <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width="200px">
+          <option value={5}>5 items per page</option>
+          <option value={10}>10 items per page</option>
+          <option value={20}>20 items per page</option>
+        </Select>
+      </Flex>
                 {/* Add your Menu here if needed */}
             
             <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
@@ -95,7 +123,7 @@ const DocumentTable = () => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {filteredTableData?.map((row) => (
+                    {currentItems?.map((row) => (
                         <Tr key={row._id}>
                             <Td>
                                 <Text fontWeight="700">{row.name}</Text>
@@ -120,6 +148,18 @@ const DocumentTable = () => {
                     ))}
                 </Tbody>
             </Table>
+
+            <Flex justifyContent="space-between" alignItems="center" px="25px" mt="4">
+        <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
+          Previous
+        </Button>
+        <Text>
+          Page {currentPage} of {totalPages}
+        </Text>
+        <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
+          Next
+        </Button>
+      </Flex>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />

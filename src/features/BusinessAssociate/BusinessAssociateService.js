@@ -20,17 +20,17 @@ const LoginAssociate= async (data)=>{
 
 
 const GetAllAssociates= async (data)=>{
-    const response = await axios.get(`${base_url}businessAssociates/all`)
+    const response = await axios.get(`${base_url}businessAssociates/all`,config)
     return response.data
 }
 
 const DeleteAssociate = async (id)=>{
-    const response = await axios.delete(`${base_url}businessAssociates/${id}`)
+    const response = await axios.delete(`${base_url}businessAssociates/${id}`,config)
     return response.data
 }
 
 const EditAssociate = async (data)=>{
-    const response = await axios.put(`${base_url}businessAssociates/${data.id}`,data)
+    const response = await axios.put(`${base_url}businessAssociates/${data.id}`,data,config)
     return response.data
 }
 

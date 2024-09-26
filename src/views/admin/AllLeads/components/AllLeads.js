@@ -41,17 +41,24 @@ const AllLeads = () => {
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedLead, setSelectedLead] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState(''); 
+
   const [formData, setFormData] = useState({
     name: '',
     mobileNumber: '',
     alternateMobileNumber: '',
     email: '',
     loanType: '',
+    loanPersonType:'',
     businessAssociate: '',
     referralName: '',
     lastAppliedBank: '',
     lastRejectionReason: ''
   });
+
+  const [itemsPerPage, setItemsPerPage] = useState(5); // Default items per page
+  const [currentPage, setCurrentPage] = useState(1);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -68,6 +75,7 @@ const AllLeads = () => {
         alternateMobileNumber: selectedLead.alternateMobileNumber || '',
         email: selectedLead.email || '',
         loanType: selectedLead.loanType?._id || '',
+        loanPersonType:selectedLead.loanPersonType || '',
         businessAssociate: selectedLead.businessAssociate || '',
         referralName: selectedLead.referralName || '',
         lastAppliedBank: selectedLead.lastAppliedBank || '',
@@ -75,6 +83,7 @@ const AllLeads = () => {
       });
     }
   }, [selectedLead]);
+
 
   const handleDelete = (id) => {
     dispatch(DeleteLead(id));
@@ -91,12 +100,55 @@ const AllLeads = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const filteredData = tableData?.filter((row) => 
+    row.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    row.mobileNumber.toString().includes(searchTerm) || // Convert mobile to string
+    row.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    row.loanType?.loanName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    row.businessAssociate?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    row.lastAppliedBank.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalItems = filteredData?.length || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem) || [];
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1); // Reset to first page
+  };
+
   return (
     <Card flexDirection="column" w="100%" px="10px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
           Leads Table
         </Text>
+        <Flex mb="4" px="25px">
+        <Input
+          placeholder="Search by Name, Mobile, Email, Loan Type..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </Flex>
+      </Flex>
+        {/* Items per page selection */}
+        <Flex mb="4" justifyContent="flex-end" px="25px">
+        <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width="200px">
+          <option value={5}>5 items per page</option>
+          <option value={10}>10 items per page</option>
+          <option value={20}>20 items per page</option>
+        </Select>
       </Flex>
       <Box>
         <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
@@ -115,6 +167,9 @@ const AllLeads = () => {
                 Loan Type
               </Th>
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
+                Loan Person Type
+              </Th>
+              <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
                 Business Associate
               </Th>
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
@@ -126,7 +181,7 @@ const AllLeads = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {tableData?.map((row) => (
+            {currentItems?.map((row) => (
               <Tr key={row._id}>
                 <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
                   <Text color={textColor} fontSize="sm" fontWeight="700">
@@ -136,6 +191,7 @@ const AllLeads = () => {
                 <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.email}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.loanType?.loanName}</Td>
+                <Td fontSize={{ sm: '14px' }}>{row.loanPersonType}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.businessAssociate?.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
                 <Td>
@@ -153,6 +209,18 @@ const AllLeads = () => {
           </Tbody>
         </Table>
       </Box>
+
+      <Flex justifyContent="space-between" alignItems="center" px="25px" mt="4">
+        <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
+          Previous
+        </Button>
+        <Text>
+          Page {currentPage} of {totalPages}
+        </Text>
+        <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
+          Next
+        </Button>
+      </Flex>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -218,11 +286,25 @@ const AllLeads = () => {
                 ))}
               </Select>
             </FormControl>
+
+            <FormControl id="loanPersonType" mb="4">
+              <FormLabel>Loan Person Type</FormLabel>
+              <Select
+                name="loanPersonType"
+                value={formData.loanPersonType}
+            onChange={changeHandler}
+            // isInvalid={!!errors.loanPersonType}
+        >
+            <option value="">Select loan Person Type</option>
+            <option value="selfEmployed">Self Employeed</option>
+            <option value="salaried">Salaried</option>
+              </Select>
+            </FormControl>
             <FormControl id="businessAssociate" mb="4">
               <FormLabel>Business Associate</FormLabel>
               <Input
                 name="businessAssociate"
-                value={formData.businessAssociate}
+                value={formData.businessAssociate.name}
                 onChange={changeHandler}
                 placeholder="Enter Business Associate"
               />
