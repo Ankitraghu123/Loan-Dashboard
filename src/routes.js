@@ -34,6 +34,9 @@ import RegisterBusinessAssociate from 'views/admin/RegisterBusinessAssociate/ind
 import { AddLeadForm } from 'views/admin/Lead/components/addLeadForm';
 import { isAssociate } from 'utils/config';
 import { isAdmin } from 'utils/config';
+import AllAssociates from 'views/admin/AllAssociates';
+import ViewDocuments from 'views/Documents/ViewDocuments';
+import AddDocuments from 'views/Documents/AddDocuments';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -135,9 +138,28 @@ const routes = [
       path: '/all-leads',
       component: <AllLeads />,
     },
+
+    {
+      name: 'All Associates',
+      layout: '/admin',
+      path: '/all-associates',
+      component: <AllAssociates />,
+    },
+    {
+      name: 'Documenst',
+      layout: '/admin',
+      path: '/add-docs',
+      component: <AddDocuments />,
+    },
   ] : []),
 
  ...(isAssociate() || isAdmin() ? [
+  {
+    name:'View Docs',
+    layout: '/admin',
+    path: '/view-docs/:id',
+    component: <ViewDocuments />,
+  },
   {
     name: 'Lead Detail',
     layout: '/admin',

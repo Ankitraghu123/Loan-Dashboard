@@ -31,6 +31,22 @@ export const GetAllAssociates = createAsyncThunk('associate/all',async(thunkApi)
     }
 })
 
+export const EditAssociate = createAsyncThunk('associate/edit',async(data,thunkApi)=>{
+    try{
+        return await businessAssociateService.EditAssociate(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const DeleteAssociate = createAsyncThunk('associate/delete',async(id,thunkApi)=>{
+    try{
+        return await businessAssociateService.DeleteAssociate(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 export const GetAllLeadsByAssociate = createAsyncThunk('associate/all/leads',async(id,thunkApi)=>{
     try{
         return await businessAssociateService.GetAllLeadsByAssociate(id)
@@ -108,6 +124,38 @@ export const businessAssociateSlice = createSlice({
 
         })
 
+        .addCase(EditAssociate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(EditAssociate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.EditedAssociate = action.payload
+           
+        })
+        .addCase(EditAssociate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.EditedAssociate = null
+
+        })
+        .addCase(DeleteAssociate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(DeleteAssociate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.deletedAssociate = action.payload
+           
+        })
+        .addCase(DeleteAssociate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.deletedAssociate = null
+
+        })
         .addCase(GetAllLeadsByAssociate.pending,(state)=>{
             state.isLoading = true
         })

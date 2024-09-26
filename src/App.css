@@ -23,3 +23,20 @@ p{
     cursor: pointer;
     /* color: #000; */
 }
+
+.table> Thead > tr > th{
+    border: 1px solid black;
+    background-color: #38B2AC;
+    color: white;
+    text-align: center;
+
+}
+
+.table> Tbody > tr > td{
+    border: 1px solid black;
+    /* background-color: #11047A; */
+    /* color: white; */
+    text-align: center;
+
+}
+

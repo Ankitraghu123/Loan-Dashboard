@@ -19,6 +19,7 @@ export const AddLeadForm = () => {
         alternateMobileNumber: "",
         email: "",
         loanType: "",
+        loanPersonType:"",
         businessAssociate: currentAssociate ? currentAssociate._id : "",
         referralName: "",
         lastAppliedBank: "",
@@ -68,6 +69,7 @@ export const AddLeadForm = () => {
                 alternateMobileNumber: "",
                 email: "",
                 loanType: "",
+                loanPersonType:"",
                 businessAssociate: currentAssociate ? currentAssociate._id : "",
                 referralName: "",
                 lastAppliedBank: "",
@@ -162,6 +164,25 @@ export const AddLeadForm = () => {
                             </Form.Group>
                         </Col>
                         <Col md={6} className="mb-3">
+                        <Form.Group id="loanPersonType">
+        <Form.Label>Loan Person Type</Form.Label>
+        <Form.Select
+            name="loanPersonType"
+            value={formData.loanPersonType}
+            onChange={changeHandler}
+            // isInvalid={!!errors.loanPersonType}
+        >
+            <option value="">Select loan Person Type</option>
+            <option value="selfEmployed">Self Employeed</option>
+            <option value="salaried">Salaried</option>
+        </Form.Select>
+       
+    </Form.Group>
+                        </Col>
+                       
+                    </Row>
+                    <Row>
+                    <Col md={6} className="mb-3">
                             <Form.Group id="businessAssociate">
                                 <Form.Label>Business Associate</Form.Label>
                                {isAdmin() ?  <Form.Control
@@ -182,8 +203,6 @@ export const AddLeadForm = () => {
 }
                             </Form.Group>
                         </Col> 
-                    </Row>
-                    <Row>
                     <Col md={6} className="mb-3">
     <Form.Group id="referralName">
         <Form.Label>Show Referral Name</Form.Label>
@@ -203,7 +222,10 @@ export const AddLeadForm = () => {
     </Form.Group>
 </Col>
 
-                        <Col md={6} className="mb-3">
+                       
+                    </Row>
+                    <Row>
+                    <Col md={6} className="mb-3">
                             <Form.Group id="lastAppliedBank">
                                 <Form.Label>Last Applied Bank</Form.Label>
                                 <Form.Control
@@ -215,9 +237,7 @@ export const AddLeadForm = () => {
                                 />
                             </Form.Group>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col md={12} className="mb-3">
+                        <Col md={6} className="mb-3">
                             <Form.Group id="lastRejectionReason">
                                 <Form.Label>Last Rejection Reason</Form.Label>
                                 <Form.Control

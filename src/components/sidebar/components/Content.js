@@ -1,5 +1,5 @@
 // chakra imports
-import { Box, Flex, Stack, Collapse, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Stack, Collapse, Text, useDisclosure, useBreakpointValue } from "@chakra-ui/react";
 import Brand from "components/sidebar/components/Brand";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -20,12 +20,13 @@ import { toast } from "react-toastify";
 
 function SidebarContent(props) {
   const navigate = useNavigate()
-  const { routes } = props;
+  const { routes,onClose } = props;
 
   // Custom hooks for handling collapsible sections
   const { isOpen: isLeadsOpen, onToggle: toggleLeads } = useDisclosure();
   const { isOpen: isReportsOpen, onToggle: toggleReports } = useDisclosure();
 
+  const isMobile = useBreakpointValue({ base: true, md: false }); 
   // State to manage active link
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation();
@@ -40,6 +41,12 @@ function SidebarContent(props) {
     navigate('/auth/sign-in')
     toast.success('logged out successfully')
   }
+
+  const handleLinkClick = () => {
+    if (isMobile || onClose) {
+      onClose(); // Close the sidebar on link click
+    }
+  };
 
   return (
     <Flex
@@ -57,7 +64,7 @@ function SidebarContent(props) {
         {/* Dashboard Link */}
        
          <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-        <Link to={isAssociate() ? "/admin/associate-dashboard" : isAdmin()? "/admin/main-dashboard" : ""} style={{ textDecoration: 'none' }}>
+        <Link to={isAssociate() ? "/admin/associate-dashboard" : isAdmin()? "/admin/main-dashboard" : ""} style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
           <Flex
             align="center"
             p={3}
@@ -75,7 +82,7 @@ function SidebarContent(props) {
        
 
         <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-          <Link to="/admin/add-lead" style={{ textDecoration: 'none' }}>
+          <Link to="/admin/add-lead" style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
             <Flex
               align="center"
               p={3}
@@ -113,7 +120,7 @@ function SidebarContent(props) {
           </Flex>
           <Collapse in={isLeadsOpen}>
             <Box pl={4} mt={2}>
-           {isAdmin() ?  <Link to="/admin/all-leads">
+           {isAdmin() ?  <Link to="/admin/all-leads" onClick={handleLinkClick}>
                 <Flex
                   align="center"
                   p={2}
@@ -128,7 +135,7 @@ function SidebarContent(props) {
 
              {isAssociate() ? 
               <>
-                 <Link to="/admin/associate-pending-lead">
+                 <Link to="/admin/associate-pending-lead" onClick={handleLinkClick}>
                <Flex
                  align="center"
                  p={2}
@@ -139,7 +146,7 @@ function SidebarContent(props) {
                  <Text>Pending Lead</Text>
                </Flex>
              </Link>
-             <Link to="/admin/associate-sanction-lead">
+             <Link to="/admin/associate-sanction-lead" onClick={handleLinkClick}>
                <Flex
                  align="center"
                  p={2}
@@ -150,7 +157,7 @@ function SidebarContent(props) {
                  <Text>Sanction Lead</Text>
                </Flex>
              </Link>
-             <Link to="/admin/associate-disbarsed-lead">
+             <Link to="/admin/associate-disbarsed-lead" onClick={handleLinkClick}>
                <Flex
                  align="center"
                  p={2}
@@ -170,7 +177,7 @@ function SidebarContent(props) {
 
         {/* Reports Dropdown */}
  <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-<Link to={isAssociate() ? "/admin/associate-rejected-lead" : ""} style={{ textDecoration: 'none' }}>
+<Link to={isAssociate() ? "/admin/associate-rejected-lead" : ""} style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
           <Flex
             align="center"
             p={3}
@@ -209,7 +216,7 @@ function SidebarContent(props) {
           </Flex>
           <Collapse in={isReportsOpen}>
             <Box pl={4} mt={2}>
-              <Link to="/admin/reports/sales">
+              <Link to="/admin/reports/sales" onClick={handleLinkClick}>
                 <Flex
                   align="center"
                   p={2}
@@ -220,7 +227,7 @@ function SidebarContent(props) {
                   <Text>Estimated Earnings</Text>
                 </Flex>
               </Link>
-              <Link to="/admin/reports/lead-performance">
+              <Link to="/admin/reports/lead-performance" onClick={handleLinkClick}>
                 <Flex
                   align="center"
                   p={2}
@@ -232,7 +239,7 @@ function SidebarContent(props) {
                   <Text>Actual Earnings</Text>
                 </Flex>
               </Link>
-              <Link to="/admin/reports/lead-performance">
+              <Link to="/admin/reports/lead-performance" onClick={handleLinkClick}>
                 <Flex
                   align="center"
                   p={2}
@@ -251,7 +258,7 @@ function SidebarContent(props) {
 
       {isAdmin() ?
       <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-      <Link to='/admin/loan' style={{ textDecoration: 'none' }}>
+      <Link to='/admin/loan' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
                 <Flex
                   align="center"
                   p={3}
@@ -270,7 +277,7 @@ function SidebarContent(props) {
 
 {isAdmin() ?
       <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-      <Link to='/admin/registerAssociate' style={{ textDecoration: 'none' }}>
+      <Link to='/admin/registerAssociate' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
                 <Flex
                   align="center"
                   p={3}
@@ -282,6 +289,44 @@ function SidebarContent(props) {
                 >
                   <Icon as={MdDashboard} color="teal.500" mr={2} />
                   <Text fontWeight="bold">Add Associate</Text>
+                </Flex>
+              </Link>
+              </Box>:null
+      }
+
+{isAdmin() ?
+      <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
+      <Link to='/admin/all-associates' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={3}
+                  border="1px"
+                  borderColor="gray.200"
+                  borderRadius="8px"
+                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+                  bg={activeLink === "/admin/all-associates" ? "teal.100" : "white"} // Active background color
+                >
+                  <Icon as={MdDashboard} color="teal.500" mr={2} />
+                  <Text fontWeight="bold">All Associates</Text>
+                </Flex>
+              </Link>
+              </Box>:null
+      }
+
+{isAdmin() ?
+      <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
+      <Link to='/admin/add-docs' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={3}
+                  border="1px"
+                  borderColor="gray.200"
+                  borderRadius="8px"
+                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+                  bg={activeLink === "/admin/add-docs" ? "teal.100" : "white"} // Active background color
+                >
+                  <Icon as={MdDashboard} color="teal.500" mr={2} />
+                  <Text fontWeight="bold">Add Documents</Text>
                 </Flex>
               </Link>
               </Box>:null

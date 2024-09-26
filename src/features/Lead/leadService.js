@@ -7,6 +7,17 @@ const AddLead = async (data)=>{
     return response.data
 }
 
+const uploadDoc = async (data)=>{
+    const response = await axios.post(`${base_url}lead/upload-doc`,data,config)
+    return response.data
+}
+
+const deleteDoc = async (data)=>{
+    console.log(data)
+    const response = await axios.delete(`${base_url}lead/delete-doc`,{data},config)
+    return response.data
+}
+
 const GetAllLeads = async (data)=>{
     const response = await axios.get(`${base_url}lead/all`,config)
     return response.data
@@ -45,6 +56,6 @@ const GetRejectedLeadByAssociate = async (id)=>{
 
 
 
-const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetSanctionedLeadByAssociate,GetRejectedLeadByAssociate}
+const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetSanctionedLeadByAssociate,GetRejectedLeadByAssociate,uploadDoc,deleteDoc}
 
 export default LeadService

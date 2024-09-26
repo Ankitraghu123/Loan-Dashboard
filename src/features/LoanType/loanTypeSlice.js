@@ -35,6 +35,38 @@ export const GetAllLoans = createAsyncThunk('loanType/all',async(thunkApi)=>{
     }
 })
 
+export const AddLoanDocuments = createAsyncThunk('loanType/add-doc',async(data,thunkApi)=>{
+    try{
+        return await LoanTypeService.AddDocuments(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const EditDocuments = createAsyncThunk('loanType/edit-doc',async(data,thunkApi)=>{
+    console.log(data)
+    try{
+        return await LoanTypeService.EditDocuments(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const deleteDocuments = createAsyncThunk('loanType/delete-do',async(id,thunkApi)=>{
+    try{
+        return await LoanTypeService.deleteDocuments(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const GetAllDocuments = createAsyncThunk('loanType/all/docs',async(thunkApi)=>{
+    try{
+        return await LoanTypeService.GetAllDocuments()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
 
 const initialState = {
     loanType:'',
@@ -114,6 +146,70 @@ export const LeadSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.deletedLoan = null
+
+        })
+        .addCase(AddLoanDocuments.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(AddLoanDocuments.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.addedDocs = action.payload
+           
+        })
+        .addCase(AddLoanDocuments.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.addedDocs = null
+
+        })
+        .addCase(EditDocuments.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(EditDocuments.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.editedDocs = action.payload
+           
+        })
+        .addCase(EditDocuments.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.editedDocs = null
+
+        })
+        .addCase(deleteDocuments.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(deleteDocuments.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.deletedDocs = action.payload
+           
+        })
+        .addCase(deleteDocuments.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.deletedDocs = null
+
+        })
+        .addCase(GetAllDocuments.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetAllDocuments.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.allDocs = action.payload
+           
+        })
+        .addCase(GetAllDocuments.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.allDocs = null
 
         })
     }

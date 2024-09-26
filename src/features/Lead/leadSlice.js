@@ -11,6 +11,24 @@ export const AddLead = createAsyncThunk('lead/add',async(data,thunkApi)=>{
     }
 })
 
+export const uploadDoc = createAsyncThunk('lead/uplaoddoc',async(data,thunkApi)=>{
+    try{
+        return await LeadService.uploadDoc(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+
+export const deleteDoc = createAsyncThunk('lead/deletedoc',async(data,thunkApi)=>{
+    try{
+        console.log(data)
+        return await LeadService.deleteDoc(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 export const GetAllLeads = createAsyncThunk('lead/all',async(thunkApi)=>{
     try{
         return await LeadService.GetAllLeads()
@@ -219,6 +237,38 @@ export const LeadSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.rejectedLead = null
+
+        })
+        .addCase(uploadDoc.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(uploadDoc.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.uploadeddoc = action.payload
+           
+        })
+        .addCase(uploadDoc.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.uploadeddoc = null
+
+        })
+        .addCase(deleteDoc.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(deleteDoc.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.deletedDocfile = action.payload
+           
+        })
+        .addCase(deleteDoc.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.deletedDocfile = null
 
         })
     }

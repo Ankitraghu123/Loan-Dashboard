@@ -186,7 +186,9 @@ console.log(dateTimeFormat(isoDateString));
     </Flex>
   </Box>
 
- {!isAssociate() ?  <Flex w="max-content" mx="auto" mt="26px">
+ {!isAssociate() ?  
+<>
+<Flex w="max-content" mx="auto" mt="26px">
     <Flex mx="auto" me="60px" align="center" direction="column">
       <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
         {totalCallCounts ? totalCallCounts : 0}
@@ -211,7 +213,14 @@ console.log(dateTimeFormat(isoDateString));
         Status
       </Text>
     </Flex>
-  </Flex> : null}
+  </Flex>
+  <Link to={`/admin/view-docs/${id}`}>
+  <Button type="submit" colorScheme="blue" mt={4}>
+            View Dcouments
+          </Button>
+  </Link>
+</>
+  : null}
 </Card>
 
 {isAssociate() ? <Card 
@@ -266,11 +275,11 @@ console.log(dateTimeFormat(isoDateString));
     
     
     
-      
+  <Link to={`/admin/view-docs/${id}`}>
       <button  className='btn1' color={textColorPrimary} fontSize="md" fontWeight="800">
         View Docs
       </button>
-   
+      </Link>
   </Flex>
 </Card> : null}
 
@@ -281,7 +290,7 @@ console.log(dateTimeFormat(isoDateString));
         border="none"
         borderRadius="2xl"
       >
-        <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="10px">
+        <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="15px">
           Schedule Call
         </Text>
         <Box as="form" onSubmit={handleCallSubmit} p={4}>
@@ -331,7 +340,7 @@ console.log(dateTimeFormat(isoDateString));
             />
           </FormControl>
 
-          <Button type="submit" colorScheme="blue" mt={4}>
+          <Button type="submit" colorScheme="blue" mt={9}>
             Add Call Record
           </Button>
         </Box>
@@ -345,7 +354,7 @@ console.log(dateTimeFormat(isoDateString));
         borderRadius="2xl"
         // mt="20px"
       >
-        <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="10px">
+        <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="15px">
           Schedule Meeting
         </Text>
         <Box as="form" onSubmit={handleMeetingSubmit} p={4}>
@@ -395,7 +404,7 @@ console.log(dateTimeFormat(isoDateString));
             />
           </FormControl>
 
-          <Button type="submit" colorScheme="blue" mt={4}>
+          <Button type="submit" colorScheme="blue" mt={9}>
             Add Meeting
           </Button>
         </Box>
@@ -410,8 +419,8 @@ console.log(dateTimeFormat(isoDateString));
           Call Table
         </Text>
         <Box>
-        <Table variant="simple" color="gray.500" mb="24px" mt="12px">
-          <Thead>
+        <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
+          <Thead >
             <Tr>
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
                 Name
@@ -457,7 +466,7 @@ console.log(dateTimeFormat(isoDateString));
           Meeting Table
         </Text>
         <Box>
-        <Table variant="simple" color="gray.500" mb="24px" mt="12px">
+        <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             <Tr>
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>

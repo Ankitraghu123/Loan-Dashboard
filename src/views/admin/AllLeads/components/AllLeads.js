@@ -92,7 +92,7 @@ const AllLeads = () => {
   };
 
   return (
-    <Card flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+    <Card flexDirection="column" w="100%" px="0px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
           Leads Table

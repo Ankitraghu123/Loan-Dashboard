@@ -24,6 +24,16 @@ const GetAllAssociates= async (data)=>{
     return response.data
 }
 
+const DeleteAssociate = async (id)=>{
+    const response = await axios.delete(`${base_url}businessAssociates/${id}`)
+    return response.data
+}
+
+const EditAssociate = async (data)=>{
+    const response = await axios.put(`${base_url}businessAssociates/${data.id}`,data)
+    return response.data
+}
+
 const GetAllLeadsByAssociate = async (id)=>{
     const response = await axios.get(`${base_url}lead/${id}/all`)
     return response.data
@@ -33,6 +43,6 @@ const GetAllLeadsByAssociate = async (id)=>{
 
 
 
-const businessAssociateService = {LoginAssociate,GetAllAssociates,RegisterAssociate,GetAllLeadsByAssociate}
+const businessAssociateService = {LoginAssociate,GetAllAssociates,RegisterAssociate,GetAllLeadsByAssociate,DeleteAssociate,EditAssociate}
 
 export default businessAssociateService
