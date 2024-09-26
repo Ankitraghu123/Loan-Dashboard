@@ -24,6 +24,8 @@ const LeadDetail = () => {
   const {meetingAdded} = useSelector(state => state?.meetingRecords)
 
   const currentLead = useSelector((state) => state.lead?.singleLead?.data);
+  const totalDocs = currentLead?.docs?.length;
+  const currentPending = currentLead?.docs?.filter(doc => doc.status === 'pending');
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'gray.400';
   const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -262,11 +264,11 @@ console.log(dateTimeFormat(isoDateString));
       </Flex>
       <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Total Documents</Text>
-        <Text color={textColorPrimary}>10</Text>
+        <Text color={textColorPrimary}>{totalDocs}</Text>
       </Flex>
       <Flex justify="space-between" mb="2">
         <Text color={textColorSecondary}>Pending Documents</Text>
-        <Text color={textColorPrimary}>2</Text>
+        <Text color={textColorPrimary}>{currentPending?.length}</Text>
       </Flex>
     </Flex>
   </Box>

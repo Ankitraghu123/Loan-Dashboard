@@ -20,6 +20,9 @@ const DocumentTable = () => {
         loanPersonType: '',
     });
 
+    const [loanTypeSearch, setLoanTypeSearch] = useState('');
+    const [loanPersonTypeSearch, setLoanPersonTypeSearch] = useState('');
+
     useEffect(() => {
         dispatch(GetAllDocuments());
     }, [dispatch,deletedDocs,editedDocs,addedDocs]);
@@ -42,14 +45,39 @@ const DocumentTable = () => {
         dispatch(deleteDocuments(id)); // Implement DeleteDocument action
     };
 
+    const filteredTableData = tableData?.filter((doc) => {
+        const matchesLoanType = loanTypeSearch ? doc.loanType.toLowerCase().includes(loanTypeSearch.toLowerCase()) : true;
+        const matchesLoanPersonType = loanPersonTypeSearch ? doc.loanPersonType?.toLowerCase().includes(loanPersonTypeSearch.toLowerCase()) : true;
+        return matchesLoanType && matchesLoanPersonType;
+    });
+
     return (
         <Card flexDirection="column" w="100%" px="0px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
             <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
                 <Text fontSize="22px" fontWeight="700" lineHeight="100%">
                     All Documents List
                 </Text>
-                {/* Add your Menu here if needed */}
+                </Flex>
+                <Flex px="25px" mb="8px" gap="10px">
+                <FormControl>
+                    <FormLabel>Search by Loan Type</FormLabel>
+                    <Input
+                        placeholder="Enter loan type"
+                        value={loanTypeSearch}
+                        onChange={(e) => setLoanTypeSearch(e.target.value)}
+                    />
+                </FormControl>
+                <FormControl>
+                    <FormLabel>Search by Loan Person Type</FormLabel>
+                    <Input
+                        placeholder="Enter loan person type"
+                        value={loanPersonTypeSearch}
+                        onChange={(e) => setLoanPersonTypeSearch(e.target.value)}
+                    />
+                </FormControl>
             </Flex>
+                {/* Add your Menu here if needed */}
+            
             <Table variant="simple" color="gray.500" mb="24px" mt="12px">
                 <Thead>
                     <Tr>
@@ -60,7 +88,7 @@ const DocumentTable = () => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {tableData?.map((row) => (
+                    {filteredTableData?.map((row) => (
                         <Tr key={row._id}>
                             <Td>
                                 <Text fontWeight="700">{row.name}</Text>

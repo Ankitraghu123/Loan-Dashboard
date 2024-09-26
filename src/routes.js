@@ -171,14 +171,6 @@ const routes = [
     name: 'Add Lead',
     layout: '/admin',
     path: '/add-lead',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
     component: <AddLeadForm />,
     secondary: true,
   },
