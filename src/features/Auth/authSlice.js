@@ -2,6 +2,11 @@ import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AuthService from "./authService";
 import { toast } from "react-toastify";
 
+const authdata = localStorage.getItem('authData')
+const associatedata = localStorage.getItem('associateData')
+
+const initialAuth = authdata ? JSON.parse(authdata) : associatedata ? JSON.parse(associatedata) : '';
+
 
 export const LoginAdmin = createAsyncThunk('admin/login',async(data,thunkApi)=>{
     try{
@@ -11,10 +16,8 @@ export const LoginAdmin = createAsyncThunk('admin/login',async(data,thunkApi)=>{
     }
 })
 
-
-
 const initialState = {
-    auth:'',
+    auth:initialAuth,
     isError:false,
     isSuccess:false,
     isLoading:false,
@@ -24,7 +27,7 @@ const initialState = {
 export const resetState=createAction('Reset_all')
 
 export const authSlice = createSlice({
-    name:"lead",
+    name:"auth",
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
@@ -35,7 +38,7 @@ export const authSlice = createSlice({
         .addCase(LoginAdmin.fulfilled,(state,action)=>{
             state.isLoading = false
             state.isSuccess = true
-            state.adminData = action.payload
+            state.authData = action.payload
            if(state.isSuccess){
             toast.success('Login Successfully')
            }
@@ -44,7 +47,7 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.isError=true
             state.isSuccess = false
-            state.adminData = null
+            state.authData = null
             if(state.isError){
                 toast.error(action.payload.response.data.error)
                }

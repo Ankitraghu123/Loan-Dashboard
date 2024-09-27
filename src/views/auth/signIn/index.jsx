@@ -21,6 +21,7 @@ import {
 import DefaultAuth from "layouts/auth/Default";
 // Assets
 import illustration from "assets/img/auth/auth.png";
+import illustration2 from "assets/img/image.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
@@ -70,7 +71,7 @@ function SignIn() {
   },[isSuccess])
 
   return (
-    <DefaultAuth illustrationBackground={illustration} image={illustration}>
+    <DefaultAuth illustrationBackground={illustration2} image={illustration2}>
       <Flex
         maxW={{ base: "100%", md: "max-content" }}
         w='100%'
@@ -122,7 +123,7 @@ function SignIn() {
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
               type='email'
-              placeholder='mail@simmmple.com'
+              placeholder='mail@asg.com'
               mb='24px'
               fontWeight='500'
               size='lg'

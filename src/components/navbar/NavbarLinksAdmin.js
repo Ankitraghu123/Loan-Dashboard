@@ -26,8 +26,10 @@ import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes';
+import { useSelector } from 'react-redux';
 export default function HeaderLinks(props) {
   const { secondary } = props;
+  const authdata = useSelector(state => state.auth?.auth)
   const { colorMode, toggleColorMode } = useColorMode();
   // Chakra Color Mode
   const navbarIcon = useColorModeValue('gray.400', 'white');
@@ -243,7 +245,7 @@ export default function HeaderLinks(props) {
           <Avatar
             _hover={{ cursor: 'pointer' }}
             color="white"
-            name="Adela Parkson"
+            name={authdata?.name}
             bg="#11047A"
             size="sm"
             w="40px"
@@ -258,7 +260,7 @@ export default function HeaderLinks(props) {
           bg={menuBg}
           border="none"
         >
-          {/* <Flex w="100%" mb="0px">
+          <Flex w="100%" mb="0px">
             <Text
               ps="20px"
               pt="16px"
@@ -270,9 +272,9 @@ export default function HeaderLinks(props) {
               fontWeight="700"
               color={textColor}
             >
-              👋&nbsp; Hey, Adela
+              👋&nbsp; Hey, {authdata?.name}
             </Text>
-          </Flex> */}
+          </Flex>
           {/* <Flex flexDirection="column" p="10px">
             <MenuItem
               _hover={{ bg: 'none' }}

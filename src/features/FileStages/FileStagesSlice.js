@@ -1,5 +1,6 @@
 import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import FileStagesService from "./FileStagesService";
+import { toast } from "react-toastify";
 
 
 export const addFileStages = createAsyncThunk('loanType/add-doc',async(data,thunkApi)=>{
@@ -66,6 +67,9 @@ export const FileStages = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.addedFileStage = action.payload
+            // if(state.isSuccess){
+            //     toast.success("file stage added")
+            // }
            
         })
         .addCase(addFileStages.rejected,(state,action)=>{
@@ -82,6 +86,9 @@ export const FileStages = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.editedFileStage = action.payload
+            // if(state.isSuccess){
+            //     toast.success("file Stage edited")
+            // }
            
         })
         .addCase(EditFileStages.rejected,(state,action)=>{

@@ -1,5 +1,6 @@
 import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import LoanTypeService from "./loanTypeService";
+import { toast } from "react-toastify";
 
 
 export const AddLoan = createAsyncThunk('loanType/add',async(data,thunkApi)=>{
@@ -155,7 +156,7 @@ export const LoanTypeSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.addedDocs = action.payload
-           
+
         })
         .addCase(AddLoanDocuments.rejected,(state,action)=>{
             state.isLoading = false

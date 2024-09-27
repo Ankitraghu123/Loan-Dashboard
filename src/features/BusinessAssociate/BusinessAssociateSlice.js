@@ -89,6 +89,9 @@ export const businessAssociateSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.associateData = null
+            if(state.isError){
+                toast.error(action.payload.response.data.message)
+            }
 
         })
         .addCase(LoginAssociate.pending,(state)=>{

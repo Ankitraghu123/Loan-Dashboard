@@ -8,6 +8,7 @@ const LoginAdmin = async (data)=>{
     if(response.data.role == 'admin'){
         const { token } = response.data;
         localStorage.setItem('authToken', token);
+        localStorage.setItem('authData', JSON.stringify(response.data));
     }else{
         const { token } = response.data;
         localStorage.setItem('associateToken', token);
