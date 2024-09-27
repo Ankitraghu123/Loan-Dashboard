@@ -36,12 +36,6 @@ function SidebarContent(props) {
     setActiveLink(location.pathname);
   }, [location.pathname]);
 
-  const logouthandler = () =>{
-    localStorage.clear();
-    navigate('/auth/sign-in')
-    toast.success('logged out successfully')
-  }
-
   const handleLinkClick = () => {
     if (isMobile || onClose) {
       onClose(); // Close the sidebar on link click
@@ -350,23 +344,6 @@ function SidebarContent(props) {
               </Link>
               </Box>:null
       }
-<Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-      {/* <Link to='/admin/loan' style={{ textDecoration: 'none' }}> */}
-                <Flex
-                  align="center"
-                  p={3}
-                  border="1px"
-                  borderColor="gray.200"
-                  borderRadius="8px"
-                  onClick={logouthandler}
-                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
-                  // bg={activeLink === "/admin/loan" ? "teal.100" : "white"} // Active background color
-                >
-                  <Icon as={MdDashboard} color="teal.500" mr={2} />
-                  <Text fontWeight="bold">Logout</Text>
-                </Flex>
-              {/* </Link> */}
-              </Box>
       </Stack>
     </Flex>
   );

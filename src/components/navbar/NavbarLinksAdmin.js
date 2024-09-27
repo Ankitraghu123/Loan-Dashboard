@@ -27,8 +27,11 @@ import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 export default function HeaderLinks(props) {
   const { secondary } = props;
+  const navigate = useNavigate()
   const authdata = useSelector(state => state.auth?.auth)
   const { colorMode, toggleColorMode } = useColorMode();
   // Chakra Color Mode
@@ -45,6 +48,12 @@ export default function HeaderLinks(props) {
     '14px 17px 40px 4px rgba(112, 144, 176, 0.06)',
   );
   const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+
+  const logouthandler = () =>{
+    localStorage.clear();
+    navigate('/auth/sign-in')
+    toast.success('logged out successfully')
+  }
   return (
     <Flex
       w={{ sm: '100%', md: 'auto' }}
@@ -275,8 +284,8 @@ export default function HeaderLinks(props) {
               👋&nbsp; Hey, {authdata?.name}
             </Text>
           </Flex>
-          {/* <Flex flexDirection="column" p="10px">
-            <MenuItem
+          <Flex flexDirection="column" p="10px">
+            {/* <MenuItem
               _hover={{ bg: 'none' }}
               _focus={{ bg: 'none' }}
               borderRadius="8px"
@@ -291,17 +300,18 @@ export default function HeaderLinks(props) {
               px="14px"
             >
               <Text fontSize="sm">Newsletter Settings</Text>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
               _hover={{ bg: 'none' }}
               _focus={{ bg: 'none' }}
               color="red.400"
               borderRadius="8px"
               px="14px"
+              onClick={logouthandler}
             >
               <Text fontSize="sm">Log out</Text>
             </MenuItem>
-          </Flex> */}
+          </Flex>
         </MenuList>
       </Menu>
     </Flex>
