@@ -156,6 +156,9 @@ export const LoanTypeSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.addedDocs = action.payload
+            // if(state.isSuccess){
+            //     toast.success('document added')
+            // }
 
         })
         .addCase(AddLoanDocuments.rejected,(state,action)=>{

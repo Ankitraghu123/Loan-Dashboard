@@ -67,9 +67,9 @@ export const FileStages = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.addedFileStage = action.payload
-            // if(state.isSuccess){
-            //     toast.success("file stage added")
-            // }
+            if(state.isSuccess){
+                toast.success("file stage added")
+            }
            
         })
         .addCase(addFileStages.rejected,(state,action)=>{

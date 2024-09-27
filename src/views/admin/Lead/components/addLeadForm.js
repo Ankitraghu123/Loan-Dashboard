@@ -190,6 +190,7 @@ export const AddLeadForm = () => {
                                     name="businessAssociate"
                                     value={formData.businessAssociate}
                                     onChange={changeHandler}
+                                    required
                                     // type="text"
                                     // placeholder="Enter Business Associate"
                                 >
@@ -251,7 +252,7 @@ export const AddLeadForm = () => {
                         </Col>
                     </Row>
 
-                    <div className="mt-3">
+                    <div className="mt-3 d-flex">
                         <button className='submitBtn' type="submit">
                             Add Lead
                         </button>

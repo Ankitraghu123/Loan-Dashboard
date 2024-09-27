@@ -104,7 +104,7 @@ const DocumentTable = () => {
                 </Col>
              </Row>
             {/* </Flex> */}
-            <Flex mb="4" justifyContent="flex-end" px="25px">
+            <Flex mt="4" justifyContent="flex-end" px="25px">
         <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width="200px">
           <option value={5}>5 items per page</option>
           <option value={10}>10 items per page</option>
