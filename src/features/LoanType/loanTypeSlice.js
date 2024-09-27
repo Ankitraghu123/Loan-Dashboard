@@ -78,7 +78,7 @@ const initialState = {
 
 export const resetState=createAction('Reset_all')
 
-export const LeadSlice = createSlice({
+export const LoanTypeSlice = createSlice({
     name:"loanType",
     initialState,
     reducers:{},
@@ -215,4 +215,4 @@ export const LeadSlice = createSlice({
     }
 })
 
-export default LeadSlice.reducer
+export default LoanTypeSlice.reducer

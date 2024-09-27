@@ -165,14 +165,14 @@ export const AddLeadForm = () => {
                         </Col>
                         <Col md={6} className="mb-3">
                         <Form.Group id="loanPersonType">
-        <Form.Label>Loan Person Type</Form.Label>
+        <Form.Label>Profile Type</Form.Label>
         <Form.Select
             name="loanPersonType"
             value={formData.loanPersonType}
             onChange={changeHandler}
             // isInvalid={!!errors.loanPersonType}
         >
-            <option value="">Select loan Person Type</option>
+            <option value="">Select Profile Type</option>
             <option value="selfEmployed">Self Employeed</option>
             <option value="salaried">Salaried</option>
         </Form.Select>

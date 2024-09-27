@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react';
 import { Card, Form, Button, Row, Col } from '@themesberg/react-bootstrap';
-import { AddLoanDocuments } from 'features/LoanType/loanTypeSlice';
+import { addFileStages } from 'features/FileStages/FileStagesSlice';
 import { GetAllLoans } from 'features/LoanType/loanTypeSlice'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import DocumentTable from './DocumentTable';
+import FileStageTable from './FileStageTable';
 
-const AddDocuments = () => {
+const AddFileStages = () => {
     const dispatch = useDispatch()
     const allLoanTypes = useSelector((state) => state.loanType?.allLoanTypes);
     useEffect(()=>{
@@ -15,6 +15,7 @@ const AddDocuments = () => {
 
     const [formData, setFormData] = useState({
         name: "",
+        sequence:"",
         loanType: "",
         loanPersonType:"",
         
@@ -29,9 +30,10 @@ const AddDocuments = () => {
     const formHandler = (e) => {
         e.preventDefault();
 
-        dispatch(AddLoanDocuments(formData));
+        dispatch(addFileStages(formData));
             setFormData({
                 name: "",
+                sequence:"",
                 loanType: "",
                 loanPersonType:"",
             })
@@ -42,7 +44,7 @@ const AddDocuments = () => {
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
          <Form onSubmit={formHandler}>
          <Row>
-         <Col md={4} className="mb-3">
+         <Col md={3} className="mb-3">
                         <Form.Group id="loanPersonType">
         <Form.Label>Profile Type</Form.Label>
         <Form.Select
@@ -58,7 +60,7 @@ const AddDocuments = () => {
        
     </Form.Group>
                         </Col>
-                        <Col md={4} className="mb-3">
+                        <Col md={3} className="mb-3">
                             <Form.Group id="loanType">
                                 <Form.Label>Loan Type</Form.Label>
                                 <Form.Control
@@ -77,16 +79,30 @@ const AddDocuments = () => {
                                 </Form.Control>
                             </Form.Group>
                         </Col>
-         <Col md={4} className="mb-3">
+         <Col md={3} className="mb-3">
                             <Form.Group id="leadName">
-                                <Form.Label>Document Name</Form.Label>
+                                <Form.Label>FileStage Name</Form.Label>
                                 <Form.Control
                                     name="name"
                                     value={formData.name}
                                     onChange={changeHandler}
                                     required
                                     type="text"
-                                    placeholder="Enter Document Name"
+                                    placeholder="Enter FileStage Name"
+                                />
+                            </Form.Group>
+                        </Col>
+
+                        <Col md={3} className="mb-3">
+                            <Form.Group id="sequence">
+                                <Form.Label>Sequence</Form.Label>
+                                <Form.Control
+                                    name="sequence"
+                                    value={formData.sequence}
+                                    onChange={changeHandler}
+                                    required
+                                    type="Number"
+                                    placeholder="Enter Sequence Number"
                                 />
                             </Form.Group>
                         </Col>
@@ -94,13 +110,13 @@ const AddDocuments = () => {
 
 
                         <button className='submitBtn' type="submit">
-                            Add Document
+                            Add FileStage
                         </button>
                         </Row>
                         </Form>
-                        <DocumentTable/>
+                        <FileStageTable/>
     </Box>
   )
 }
 
-export default AddDocuments
+export default AddFileStages

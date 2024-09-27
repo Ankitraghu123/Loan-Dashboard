@@ -45,7 +45,9 @@ export const authSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.adminData = null
-
+            if(state.isError){
+                toast.error(action.payload.response.data.error)
+               }
         })
        
     }

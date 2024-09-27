@@ -32,12 +32,13 @@ const LeadDetail = () => {
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   const [totalCallCounts,setTotalCallCounts] = useState(callData?.length)
   const [totalMeetCounts,setTotalMeetCounts] = useState(meetingData?.length)
+  const {updatedleadfileStage} = useSelector(state => state.fileStages)
 
   useEffect(()=>{
     dispatch(GetAllByLead(id))
     dispatch(GetAllMeetingByLead(id))
     dispatch(GetSingleLead(id));
-  },[dispatch,callAdded,meetingAdded,id])
+  },[dispatch,callAdded,meetingAdded,id,updatedleadfileStage])
 
   useEffect(() => {
     setTotalCallCounts(callData?.length)

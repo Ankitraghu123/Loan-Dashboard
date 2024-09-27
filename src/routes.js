@@ -37,6 +37,7 @@ import { isAdmin } from 'utils/config';
 import AllAssociates from 'views/admin/AllAssociates';
 import ViewDocuments from 'views/Documents/ViewDocuments';
 import AddDocuments from 'views/Documents/AddDocuments';
+import AddFileStages from 'views/FileStages/AddFileStages';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -150,6 +151,12 @@ const routes = [
       layout: '/admin',
       path: '/add-docs',
       component: <AddDocuments />,
+    },
+    {
+      name: 'File Stages',
+      layout: '/admin',
+      path: '/add-fileStages',
+      component: <AddFileStages/>,
     },
   ] : []),
 

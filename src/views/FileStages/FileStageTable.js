@@ -3,20 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Flex, Text, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'; // Adjust imports as necessary
-import { EditDocuments } from 'features/LoanType/loanTypeSlice';
-import { deleteDocuments } from 'features/LoanType/loanTypeSlice';
 import { Col, Row } from 'react-bootstrap';
+import { GetAllFileStages } from 'features/FileStages/FileStagesSlice';
+import { EditFileStages } from 'features/FileStages/FileStagesSlice';
+import { deleteFileStages } from 'features/FileStages/FileStagesSlice';
 
-const DocumentTable = () => {
+const FileStageTable = () => {
     const dispatch = useDispatch();
-    const tableData = useSelector((state) => state?.loanType?.allDocs); // Ensure you are selecting the right slice
+    const tableData = useSelector((state) => state?.fileStages?.allFileStage); // Ensure you are selecting the right slice
     const allLoanTypes = useSelector((state) => state?.loanType?.allLoanTypes); // Ensure you fetch all loan types
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const {deletedDocs,editedDocs,addedDocs} = useSelector(state => state.loanType)
+    const {deletedFileStage,addedFileStage,editedFileStage} = useSelector(state => state.fileStages)
     
     const [selectedDoc, setSelectedDoc] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
+        sequence:'',
         loanType: '',
         loanPersonType: '',
     });
@@ -27,8 +29,8 @@ const DocumentTable = () => {
     const [itemsPerPage, setItemsPerPage] = useState(5); // Default items per page
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
-        dispatch(GetAllDocuments());
-    }, [dispatch,deletedDocs,editedDocs,addedDocs]);
+        dispatch(GetAllFileStages());
+    }, [dispatch,deletedFileStage,addedFileStage,editedFileStage]);
 
     // Function to handle form changes
     const changeHandler = (e) => {
@@ -39,13 +41,13 @@ const DocumentTable = () => {
     // Function to handle editing a document
     const handleEdit = () => {
         if (selectedDoc) {
-            dispatch(EditDocuments({ id: selectedDoc._id, ...formData })); // Assuming you have an EditDocument action
+            dispatch(EditFileStages({ id: selectedDoc._id, ...formData })); // Assuming you have an EditDocument action
             onClose();
         }
     };
 
     const handleDelete = (id) => {
-        dispatch(deleteDocuments(id)); // Implement DeleteDocument action
+        dispatch(deleteFileStages(id)); // Implement DeleteDocument action
     };
 
     const filteredTableData = tableData?.filter((doc) => {
@@ -77,7 +79,7 @@ const DocumentTable = () => {
         <Card flexDirection="column" w="100%" mt="80px" px="10px" py="10px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
             <Flex px="5px" mb="8px" justifyContent="space-between" align="center">
                 <Text fontSize="22px" fontWeight="700" lineHeight="100%">
-                    All Documents List
+                    All File Stage List
                 </Text>
                 </Flex>
                 {/* <Flex px="25px" mb="8px" gap="10px"> */}
@@ -96,7 +98,7 @@ const DocumentTable = () => {
                 {/* <FormControl> */}
                     <FormLabel>Profile Type</FormLabel>
                     <Input
-                        placeholder="Enter profile type"
+                        placeholder="Search profile type"
                         value={loanPersonTypeSearch}
                         onChange={(e) => setLoanPersonTypeSearch(e.target.value)}
                     />
@@ -119,6 +121,7 @@ const DocumentTable = () => {
                         <Th>Name</Th>
                         <Th>Loan Type</Th>
                         <Th>Profile Type</Th>
+                        <Th>Sequence</Th>
                         <Th>Actions</Th>
                     </Tr>
                 </Thead>
@@ -130,11 +133,12 @@ const DocumentTable = () => {
                             </Td>
                             <Td>{row.loanType}</Td>
                             <Td>{row.loanPersonType}</Td>
+                            <Td>{row.sequence}</Td>
                             <Td>
                                <div className='d-flex'>
                                <Button onClick={() => { 
                                     setSelectedDoc(row); 
-                                    setFormData({ name: row.name, loanType: row.loanType._id, loanPersonType: row.loanPersonType }); // Fill the form
+                                    setFormData({ name: row.name, loanType: row.loanType._id, loanPersonType: row.loanPersonType,sequence:row.sequence }); // Fill the form
                                     onOpen(); 
                                 }}>
                                     <EditIcon />
@@ -164,17 +168,17 @@ const DocumentTable = () => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Edit Document</ModalHeader>
+                    <ModalHeader>Edit FileStage</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <FormControl id="docName" mb="4">
+                        <FormControl id="filestageName" mb="4">
                             <FormLabel>Name</FormLabel>
                             <Input
                                 name="name"
                                 value={formData.name}
                                 onChange={changeHandler}
                                 required
-                                placeholder="Enter Document Name"
+                                placeholder="Enter FileStage Name"
                             />
                         </FormControl>
                         <FormControl id="loanType" mb="4">
@@ -196,15 +200,25 @@ const DocumentTable = () => {
                         <FormControl id="loanPersonType" mb="4">
                             <FormLabel>Profile Type</FormLabel>
                             <Select
-                                  name="loanPersonType"
-                                  value={formData.loanPersonType}
-                                  onChange={changeHandler}
-                                  // isInvalid={!!errors.loanPersonType}
-                              >
-                                  <option value="">Select Profile Type</option>
-                                  <option value="selfEmployed">Self Employeed</option>
-                                  <option value="salaried">Salaried</option>
-                                  </Select>
+                                name="loanPersonType"
+                                value={formData.loanPersonType}
+                                onChange={changeHandler}
+                                // isInvalid={!!errors.loanPersonType}
+                            >
+                                <option value="">Select Profile Type</option>
+                                <option value="selfEmployed">Self Employeed</option>
+                                <option value="salaried">Salaried</option></Select>
+                        </FormControl>
+                        <FormControl id="sequence" mb="4">
+                            <FormLabel>Sequence</FormLabel>
+                            <Input
+                            type='number'
+                                name="sequence"
+                                value={formData.sequence}
+                                onChange={changeHandler}
+                                required
+                                placeholder="Enter Sequence"
+                            />
                         </FormControl>
                         <Button colorScheme="blue" onClick={handleEdit}>
                             Save Changes
@@ -216,4 +230,4 @@ const DocumentTable = () => {
     );
 }
 
-export default DocumentTable;
+export default FileStageTable;

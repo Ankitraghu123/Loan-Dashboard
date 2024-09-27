@@ -92,7 +92,7 @@ function SidebarContent(props) {
               _hover={{ borderColor: "teal.400", bg: "gray.50" }}
               bg={activeLink === "/admin/add-lead" ? "teal.100" : ""} // Active background color
             >
-              <Icon as={MdDashboard} color="teal.500" mr={2} />
+              <Icon as={MdPersonAdd} color="teal.500" mr={2} />
               <Text fontWeight="bold">Add Lead</Text>
             </Flex>
           </Link>
@@ -113,7 +113,7 @@ function SidebarContent(props) {
             bg={isLeadsOpen ? "teal.100" : ""}
           >
             <Flex align="center">
-              <Icon as={MdPersonAdd} color="teal.500" mr={2} />
+              <Icon as={MdDashboard} color="teal.500" mr={2} />
               <Text fontWeight="bold">Leads</Text>
             </Flex>
             <Icon as={isLeadsOpen ? MdArrowDropDown : MdArrowRight} />
@@ -332,6 +332,24 @@ function SidebarContent(props) {
               </Box>:null
       }
 
+{isAdmin() ?
+      <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
+      <Link to='/admin/add-fileStages' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={3}
+                  border="1px"
+                  borderColor="gray.200"
+                  borderRadius="8px"
+                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+                  bg={activeLink === "/admin/add-fileStages" ? "teal.100" : "white"} // Active background color
+                >
+                  <Icon as={MdDashboard} color="teal.500" mr={2} />
+                  <Text fontWeight="bold">Add FileStages</Text>
+                </Flex>
+              </Link>
+              </Box>:null
+      }
 <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
       {/* <Link to='/admin/loan' style={{ textDecoration: 'none' }}> */}
                 <Flex

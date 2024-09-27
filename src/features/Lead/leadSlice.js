@@ -122,7 +122,7 @@ export const LeadSlice = createSlice({
             state.isSuccess = false
             state.leadAdded = null
             if(state.isError){
-                console.log(action)
+                console.log(action.payload)
                 toast.error(action.payload.response.data.message)
             }
 
