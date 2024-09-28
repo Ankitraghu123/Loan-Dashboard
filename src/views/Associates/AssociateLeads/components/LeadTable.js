@@ -30,6 +30,7 @@ import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { GetAllLeads, DeleteLead, EditLead } from 'features/Lead/leadSlice';
 import { Link } from 'react-router-dom';
 import { GetAllLoans } from 'features/LoanType/loanTypeSlice';
+import { isAdmin } from 'utils/config';
 
 const LeadTable= ({tableData,tableName}) => {
     const dispatch = useDispatch()
@@ -168,9 +169,12 @@ const LeadTable= ({tableData,tableName}) => {
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
                 Last Applied Bank
               </Th>
+             {
+              isAdmin() ? 
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
-                Actions
-              </Th>
+              Actions
+            </Th> : null
+             }
             </Tr>
           </Thead>
           <Tbody>
@@ -186,14 +190,17 @@ const LeadTable= ({tableData,tableName}) => {
                 <Td fontSize={{ sm: '14px' }}>{row.loanType?.loanName}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.businessAssociate.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
+               {
+                isAdmin() ? 
                 <Td className='d-flex'>
-                  <Button onClick={() => { setSelectedLead(row); onOpen(); }}>
-                    <EditIcon />
-                  </Button>
-                  <button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4" style={{color:"red"}}>
-                    <DeleteIcon />
-                  </button>
-                </Td>
+                <Button onClick={() => { setSelectedLead(row); onOpen(); }}>
+                  <EditIcon />
+                </Button>
+                <button onClick={() => handleDelete(row._id)} colorScheme="red" ml="4" style={{color:"red"}}>
+                  <DeleteIcon />
+                </button>
+              </Td> : null
+               }
               </Tr>
             ))}
           </Tbody>

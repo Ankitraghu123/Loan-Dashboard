@@ -53,7 +53,7 @@ export const EditDocuments = createAsyncThunk('loanType/edit-doc',async(data,thu
     }
 })
 
-export const deleteDocuments = createAsyncThunk('loanType/delete-do',async(id,thunkApi)=>{
+export const deleteDocuments = createAsyncThunk('loanType/delete-doc',async(id,thunkApi)=>{
     try{
         return await LoanTypeService.deleteDocuments(id)
     }catch(err){

@@ -182,28 +182,31 @@ export const AddLeadForm = () => {
                        
                     </Row>
                     <Row>
+                   {
+                    isAdmin() ?
                     <Col md={6} className="mb-3">
-                            <Form.Group id="businessAssociate">
-                                <Form.Label>Business Associate</Form.Label>
-                               {isAdmin() ?  <Form.Control
-                                    as="select"
-                                    name="businessAssociate"
-                                    value={formData.businessAssociate}
-                                    onChange={changeHandler}
-                                    required
-                                    // type="text"
-                                    // placeholder="Enter Business Associate"
-                                >
-                                     <option value="">Select Business Associate</option>
-                                    {allBusinessAssociatess?.map((associate) => (
-                                        <option key={associate._id} value={associate._id}>
-                                            {associate.name}
-                                        </option>
-                                    ))}
-                                </Form.Control>: <FormControl type='text' value={currentAssociate?.name} />
-}
-                            </Form.Group>
-                        </Col> 
+                    <Form.Group id="businessAssociate">
+                        <Form.Label>Business Associate</Form.Label>
+                        <Form.Control
+                            as="select"
+                            name="businessAssociate"
+                            value={formData.businessAssociate}
+                            onChange={changeHandler}
+                            required
+                            // type="text"
+                            // placeholder="Enter Business Associate"
+                        >
+                             <option value="">Select Business Associate</option>
+                            {allBusinessAssociatess?.map((associate) => (
+                                <option key={associate._id} value={associate._id}>
+                                    {associate.name}
+                                </option>
+                            ))}
+                        </Form.Control>
+
+                    </Form.Group>
+                </Col> : null
+                   }
                     <Col md={6} className="mb-3">
     <Form.Group id="referralName">
         <Form.Label>Show Referral Name</Form.Label>
@@ -222,11 +225,7 @@ export const AddLeadForm = () => {
         </Form.Control.Feedback>
     </Form.Group>
 </Col>
-
-                       
-                    </Row>
-                    <Row>
-                    <Col md={6} className="mb-3">
+<Col md={6} className="mb-3">
                             <Form.Group id="lastAppliedBank">
                                 <Form.Label>Last Applied Bank</Form.Label>
                                 <Form.Control
@@ -250,7 +249,10 @@ export const AddLeadForm = () => {
                                 />
                             </Form.Group>
                         </Col>
+
+                       
                     </Row>
+                    
 
                     <div className="mt-3 d-flex">
                         <button className='submitBtn' type="submit">

@@ -45,13 +45,16 @@ const ViewDocuments = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     if (selectedDoc && selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('docId', selectedDoc);
       formData.append('leadId', id);
       dispatch(uploadDoc(formData));
+
+      setSelectedDoc('');
+    setSelectedFile(null);
     } else {
       console.error("Please select a document and a file to upload.");
     }
@@ -90,20 +93,20 @@ const ViewDocuments = () => {
         <MiniStatistics name='Pending Documents' value={pendingDocs?.length} />
       </SimpleGrid>
 
-      {isAdmin() ? 
+      
         <FormControl mt={5}>
           <FormLabel>Select Pending Document to Upload</FormLabel>
-          <Select placeholder="Select document" onChange={handleDocSelection}>
+          <Select value={selectedDoc} onChange={handleDocSelection}>
+            <option value=''>Select Document</option>
             {pendingDocs?.map((doc, index) => (
               <option key={index} value={doc._id}>
                 {doc.name}
               </option>
             ))}
           </Select>
-        </FormControl> : null 
-      }
+        </FormControl> 
 
-{
+{/* {
   isAssociate() ? 
   <FormControl mt={5}>
   <FormLabel>See Pending Documents</FormLabel>
@@ -115,7 +118,7 @@ const ViewDocuments = () => {
         ))}
       </Select>
   </FormControl> : null
-}
+} */}
 
       {selectedDoc && (
         <FormControl mt={5}>
@@ -147,7 +150,7 @@ const ViewDocuments = () => {
                     
                   
                 </Flex>
-                {doc.file && (
+                {doc.file && isAdmin() ? (
                   <>
                     {doc.file.endsWith('.jpg') || doc.file.endsWith('.jpeg') || doc.file.endsWith('.png') ? (
                       <>
@@ -161,7 +164,7 @@ const ViewDocuments = () => {
                         <a href={doc.file} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
                       </Text>
                   </>
-                )}
+                ) : null}
                </div>
                <div className='d-flex justify-content-between my-2'>
 <Text>
