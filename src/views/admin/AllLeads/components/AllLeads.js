@@ -130,22 +130,27 @@ const AllLeads = () => {
 
   return (
     <Card flexDirection="column" w="100%" px="10px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-      <Flex px="25px" mb="8px" justifyContent={{base:'center',md:"space-between"}} align="center"  flexDirection={{ base: 'column', md: 'row' }}   gap={{ base: '10px', md: '0' }}>
+      <Flex  px="25px"
+  mb="8px"
+  justifyContent={{ base: 'center', md: 'space-between' }}
+  align="center"
+  flexDirection={{ base: 'column', md: 'row' }}
+  gap={{ base: '10px', md: '0' }}>
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%"   mb={{ base: '10px', md: '0' }}>
           Leads Table
         </Text>
-        <Flex mb="4">
+        <Flex  mb={{ base: '4', md: '0' }} w={{ base: '100%', md: 'auto' }}>
         <Input
           placeholder="Search..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className='w-auto'
+           w="100%"
         />
       </Flex>
       </Flex>
         {/* Items per page selection */}
-        <Flex mb="4" justifyContent="flex-end" px="25px">
-        <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width="200px">
+        <Flex mb="4" justifyContent={{ base: 'center', md: 'flex-end' }} px="25px" w="100%">
+        <Select value={itemsPerPage} onChange={handleItemsPerPageChange}  width={{ base: '100%', md: '200px' }}>
           <option value={5}>5 items per page</option>
           <option value={10}>10 items per page</option>
           <option value={20}>20 items per page</option>

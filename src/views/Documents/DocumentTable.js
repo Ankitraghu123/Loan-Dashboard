@@ -1,7 +1,7 @@
 import { GetAllDocuments } from 'features/LoanType/loanTypeSlice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Card, Flex, Text, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
+import { Button, Card, Flex, Text, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Select, Box } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'; // Adjust imports as necessary
 import { EditDocuments } from 'features/LoanType/loanTypeSlice';
 import { deleteDocuments } from 'features/LoanType/loanTypeSlice';
@@ -104,8 +104,8 @@ const DocumentTable = () => {
                 </Col>
              </Row>
             {/* </Flex> */}
-            <Flex mt="4" justifyContent="flex-end" px="25px">
-        <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width="200px">
+            <Flex mt="4" justifyContent="flex-end" className='px-2'>
+        <Select value={itemsPerPage} onChange={handleItemsPerPageChange} width={{ base: '100%', md: '200px' }}>
           <option value={5}>5 items per page</option>
           <option value={10}>10 items per page</option>
           <option value={20}>20 items per page</option>
@@ -113,7 +113,8 @@ const DocumentTable = () => {
       </Flex>
                 {/* Add your Menu here if needed */}
             
-            <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
+           <Box overflowX="auto" maxHeight="400px" mb="24px">
+           <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
                 <Thead>
                     <Tr>
                         <Th>Name</Th>
@@ -148,6 +149,7 @@ const DocumentTable = () => {
                     ))}
                 </Tbody>
             </Table>
+           </Box>
 
             <Flex justifyContent="space-between" alignItems="center" px="25px" mt="4">
         <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
