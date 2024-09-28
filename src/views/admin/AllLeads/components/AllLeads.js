@@ -130,15 +130,16 @@ const AllLeads = () => {
 
   return (
     <Card flexDirection="column" w="100%" px="10px" mt="80px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-      <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
-        <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
+      <Flex px="25px" mb="8px" justifyContent={{base:'center',md:"space-between"}} align="center"  flexDirection={{ base: 'column', md: 'row' }}   gap={{ base: '10px', md: '0' }}>
+        <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%"   mb={{ base: '10px', md: '0' }}>
           Leads Table
         </Text>
-        <Flex mb="4" px="25px">
+        <Flex mb="4">
         <Input
-          placeholder="Search by Name, Mobile, Email, Loan Type..."
+          placeholder="Search..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          className='w-auto'
         />
       </Flex>
       </Flex>
@@ -150,7 +151,7 @@ const AllLeads = () => {
           <option value={20}>20 items per page</option>
         </Select>
       </Flex>
-      <Box>
+      <Box overflowX="auto" maxHeight="400px" mb="24px">
         <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             <Tr>
