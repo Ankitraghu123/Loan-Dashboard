@@ -120,7 +120,7 @@ export const AddLeadForm = () => {
                     <Row>
                         <Col md={6} className="mb-3">
                             <Form.Group id="alternateMobileNumber">
-                                <Form.Label>Alternate Mobile Number</Form.Label>
+                                <Form.Label>Alternate Mobile Number (optional)</Form.Label>
                                 <Form.Control
                                     name="alternateMobileNumber"
                                     value={formData.alternateMobileNumber}
@@ -132,7 +132,7 @@ export const AddLeadForm = () => {
                         </Col>
                         <Col md={6} className="mb-3">
                             <Form.Group id="email">
-                                <Form.Label>Email</Form.Label>
+                                <Form.Label>Email (optional)</Form.Label>
                                 <Form.Control
                                     name="email"
                                     value={formData.email}
@@ -165,7 +165,7 @@ export const AddLeadForm = () => {
                         </Col>
                         <Col md={6} className="mb-3">
                         <Form.Group id="loanPersonType">
-        <Form.Label>Profile Type</Form.Label>
+        <Form.Label>Profile Type (optional)</Form.Label>
         <Form.Select
             name="loanPersonType"
             value={formData.loanPersonType}
@@ -227,7 +227,7 @@ export const AddLeadForm = () => {
 </Col>
 <Col md={6} className="mb-3">
                             <Form.Group id="lastAppliedBank">
-                                <Form.Label>Last Applied Bank</Form.Label>
+                                <Form.Label>Last Applied Bank (optional)</Form.Label>
                                 <Form.Control
                                     name="lastAppliedBank"
                                     value={formData.lastAppliedBank}
@@ -239,7 +239,7 @@ export const AddLeadForm = () => {
                         </Col>
                         <Col md={6} className="mb-3">
                             <Form.Group id="lastRejectionReason">
-                                <Form.Label>Last Rejection Reason</Form.Label>
+                                <Form.Label>Last Rejection Reason (optional)</Form.Label>
                                 <Form.Control
                                     name="lastRejectionReason"
                                     value={formData.lastRejectionReason}

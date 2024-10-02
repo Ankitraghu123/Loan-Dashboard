@@ -58,7 +58,7 @@ function SidebarContent(props) {
         {/* Dashboard Link */}
        
          <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-        <Link to={isAssociate() ? "/admin/associate-dashboard" : isAdmin()? "/admin/main-dashboard" : ""} style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+        <Link to={isAssociate() ? "/admin/associate-dashboard" : isAdmin()? "/admin/dashboard" : ""} style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
           <Flex
             align="center"
             p={3}

@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorModeValue, Button, FormControl, FormLabel, Input, Textarea, Card, Thead, Tr, Th, Tbody, Td,Table } from '@chakra-ui/react';
+import { Box, Flex, Text, useColorModeValue, Button, FormControl, FormLabel, Input, Textarea, Card, Thead, Tr, Th, Tbody, Td,Table, ModalOverlay, ModalContent, ModalCloseButton,useDisclosure,Modal, ModalBody, ModalFooter, ModalHeader } from '@chakra-ui/react';
 import { GetAllByLead } from 'features/CallRecords/CallSlice';
 import { AddCall } from 'features/CallRecords/CallSlice';
 import { GetSingleLead } from 'features/Lead/leadSlice';
@@ -11,10 +11,14 @@ import { Link, useParams } from 'react-router-dom';
 import Timeline from './Timeline';
 import { isAssociate } from 'utils/config';
 import { isAdmin } from 'utils/config';
+import { EditLead } from 'features/Lead/leadSlice';
+// import {  } from 'react-bootstrap';
 
 const LeadDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [rejectReason, setRejectReason] = useState("");
   // const [isAdmin(),setIsAdmin]= useState(false)
 
   const callData = useSelector(state => state.callRecords?.callRecords?.data)
@@ -118,6 +122,19 @@ const LeadDetail = () => {
     return formattedDateTime;
 };
 
+
+const handleRejectSubmit = () => {
+  // Dispatch action or API call to update lead status to rejected
+  const updatedLead = {
+    status: "rejected",
+    rejectReason,
+  };
+
+  dispatch(EditLead({id,...updatedLead}));
+
+  onClose(); // Close modal after submission
+};
+
 // Example usage
 const isoDateString = '2024-09-19T02:47:32.603Z';
 console.log(dateTimeFormat(isoDateString));
@@ -217,14 +234,40 @@ console.log(dateTimeFormat(isoDateString));
       </Text>
     </Flex>
   </Flex>
-  <Link to={`/admin/view-docs/${id}`} className='w-100 d-flex'>
-  <button className='submitBtn' type="submit"  mt={4}>
+  <Flex className='w-100'><Link to={`/admin/view-docs/${id}`} className='w-100'>
+  <button className='submitBtn' type="submit">
             View Dcouments
           </button>
   </Link>
+  <button className='submitBtn' onClick={onOpen}>
+            Reject Lead
+          </button></Flex>
 </>
   : null}
 </Card>
+
+<Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Reject Lead</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Textarea
+              placeholder="Enter rejection reason"
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="red" onClick={handleRejectSubmit}>
+              Submit Rejection
+            </Button>
+            <Button onClick={onClose} ml={3}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
 {isAssociate() ? <Card 
   style={{ width: isAdmin() ? '400px' : '500px' }} 
@@ -515,6 +558,8 @@ console.log(dateTimeFormat(isoDateString));
       </Box>
     </Card> : null}
     </Flex>
+
+    
     <Timeline/></>
   );
 };

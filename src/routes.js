@@ -38,6 +38,7 @@ import AllAssociates from 'views/admin/AllAssociates';
 import ViewDocuments from 'views/Documents/ViewDocuments';
 import AddDocuments from 'views/Documents/AddDocuments';
 import AddFileStages from 'views/FileStages/AddFileStages';
+import AdminDashboard from 'views/admin/AdminDashboard';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -157,6 +158,12 @@ const routes = [
       layout: '/admin',
       path: '/add-fileStages',
       component: <AddFileStages/>,
+    },
+    {
+      name: 'Admin Dashboard',
+      layout: '/admin',
+      path: '/dashboard',
+      component: <AdminDashboard/>,
     },
   ] : []),
 

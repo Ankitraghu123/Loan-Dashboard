@@ -11,6 +11,11 @@ const GetAllByLead = async (id)=>{
     return response.data
 }
 
+const GetTodaysCall = async (id)=>{
+    const response = await axios.get(`${base_url}call/all/${id}`)
+    return response.data
+}
+
 
 
 

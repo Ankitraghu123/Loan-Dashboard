@@ -112,7 +112,8 @@ export const LeadSlice = createSlice({
             state.isSuccess = true
             state.leadAdded = action.payload
             if(state.isSuccess){
-                toast.success("lead Added successfully")
+                console.log(action.payload.message)
+                toast.success(action.payload.message)
             }
            
         })

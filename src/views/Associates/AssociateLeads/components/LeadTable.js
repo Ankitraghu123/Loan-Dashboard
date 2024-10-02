@@ -31,6 +31,7 @@ import { GetAllLeads, DeleteLead, EditLead } from 'features/Lead/leadSlice';
 import { Link } from 'react-router-dom';
 import { GetAllLoans } from 'features/LoanType/loanTypeSlice';
 import { isAdmin } from 'utils/config';
+import { isAssociate } from 'utils/config';
 
 const LeadTable= ({tableData,tableName}) => {
     const dispatch = useDispatch()
@@ -175,6 +176,12 @@ const LeadTable= ({tableData,tableName}) => {
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
                 Last Applied Bank
               </Th>
+              {
+                isAssociate() ? 
+                <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
+                Rejection Reason
+              </Th> : null
+              }
              {
               isAdmin() ? 
               <Th color="gray.400" fontSize={{ sm: '10px', lg: '12px' }} borderColor={borderColor}>
@@ -196,6 +203,11 @@ const LeadTable= ({tableData,tableName}) => {
                 <Td fontSize={{ sm: '14px' }}>{row.loanType?.loanName}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.businessAssociate.name}</Td>
                 <Td fontSize={{ sm: '14px' }}>{row.lastAppliedBank}</Td>
+                {
+                  isAssociate() ? 
+                <Td fontSize={{ sm: '14px' }}>{row.rejectReason}</Td>
+                  : null
+                }
                {
                 isAdmin() ? 
                 <Td className='d-flex'>
