@@ -39,6 +39,7 @@ import ViewDocuments from 'views/Documents/ViewDocuments';
 import AddDocuments from 'views/Documents/AddDocuments';
 import AddFileStages from 'views/FileStages/AddFileStages';
 import AdminDashboard from 'views/admin/AdminDashboard';
+import AllRejectedLead from 'views/admin/AllLeads/components/AllRejectedLead';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -139,6 +140,13 @@ const routes = [
       icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
       path: '/all-leads',
       component: <AllLeads />,
+    },
+    {
+      name: 'All Rejected lead',
+      layout: '/admin',
+      icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      path: '/all-rejected-lead',
+      component: <AllRejectedLead />,
     },
 
     {

@@ -133,7 +133,9 @@ const ViewDocuments = () => {
         </button>
       )}
 
-      <Box mt={10}>
+      {
+        isAdmin() ? 
+        <Box mt={10}>
         <FormLabel>Completed Documents</FormLabel>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={4}>
           {completedDocs?.length > 0 ? (
@@ -150,7 +152,7 @@ const ViewDocuments = () => {
                     
                   
                 </Flex>
-                {doc.file && isAdmin() ? (
+                
                   <>
                     {doc.file.endsWith('.jpg') || doc.file.endsWith('.jpeg') || doc.file.endsWith('.png') ? (
                       <>
@@ -164,7 +166,7 @@ const ViewDocuments = () => {
                         <a href={doc.file} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
                       </Text>
                   </>
-                ) : null}
+                
                </div>
                <div className='d-flex justify-content-between my-2'>
 <Text>
@@ -175,14 +177,14 @@ const ViewDocuments = () => {
     </Text>
 </div>
 
-{
-                    isAdmin() ?
+
+                    
                       <div className='d-flex justify-content-between'>
                         <DeleteIcon className='text-danger' onClick={() => deleteHandler(doc._id)} />
                         <EditIcon ml={2} colorScheme="yellow" onClick={() => handleEditClick(doc._id)}/> 
                       </div>
-                    : null
-                  }
+                    
+                  
                 </div>
               </Box>
             ))
@@ -190,7 +192,8 @@ const ViewDocuments = () => {
             <Text>No completed documents available.</Text>
           )}
         </SimpleGrid>
-      </Box>
+      </Box> : null
+      }
 
       <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
         <ModalOverlay />

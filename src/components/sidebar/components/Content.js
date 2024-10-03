@@ -171,7 +171,7 @@ function SidebarContent(props) {
 
         {/* Reports Dropdown */}
  <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-<Link to={isAssociate() ? "/admin/associate-rejected-lead" : ""} style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+<Link to={isAssociate() ? "/admin/associate-rejected-lead" : "/admin/all-rejected-lead"} style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
           <Flex
             align="center"
             p={3}

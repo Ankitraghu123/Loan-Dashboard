@@ -53,9 +53,15 @@ const GetRejectedLeadByAssociate = async (id)=>{
     return response.data
 }
 
+const GetAllRejectedLead = async ()=>{
+    const response = await axios.get(`${base_url}lead/all/rejected`,config)
+    return response.data
+}
 
 
 
-const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetSanctionedLeadByAssociate,GetRejectedLeadByAssociate,uploadDoc,deleteDoc}
+
+
+const LeadService = {AddLead,GetAllLeads,GetSingleLead,DeleteLead,EditLead,GetPendingLeadByAssociate,GetSanctionedLeadByAssociate,GetRejectedLeadByAssociate,uploadDoc,deleteDoc,GetAllRejectedLead}
 
 export default LeadService

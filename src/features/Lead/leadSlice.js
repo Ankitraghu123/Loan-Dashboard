@@ -88,6 +88,15 @@ export const GetRejectedLeadByAssociate = createAsyncThunk('lead/rejected/associ
 })
 
 
+export const GetAllRejectedLead = createAsyncThunk('lead/all/rejected',async(thunkApi)=>{
+    try{
+        return await LeadService.GetAllRejectedLead()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+
 const initialState = {
     lead:'',
     isError:false,
@@ -270,6 +279,22 @@ export const LeadSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.deletedDocfile = null
+
+        })
+        .addCase(GetAllRejectedLead.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetAllRejectedLead.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.allRejectedLead = action.payload
+           
+        })
+        .addCase(GetAllRejectedLead.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.allRejectedLead = null
 
         })
     }
