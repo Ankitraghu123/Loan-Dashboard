@@ -5,7 +5,10 @@ import CallReducer from 'features/CallRecords/CallSlice';
 import FileStagesReducer from 'features/FileStages/FileStagesSlice';
 import leadReducer from 'features/Lead/leadSlice';
 import loanTypeReducer from 'features/LoanType/loanTypeSlice';
+import ManagerReducer from 'features/Manager/ManagerSlice';
 import MeetingReducer from 'features/MeetingRecords/MeetingSlice';
+import SalesExecutiveReducer from 'features/SalesExecutive/SalesExecutiveSlice';
+import TelecallerReducer from 'features/Telecaller/TelecallerSlice';
 
 
 
@@ -17,6 +20,9 @@ export const store = configureStore({
    meetingRecords:MeetingReducer,
    auth:authReducer,
    associate:BusinessAssociateReducer,
-   fileStages:FileStagesReducer
+   fileStages:FileStagesReducer,
+   telecaller:TelecallerReducer,
+   salesExecutive:SalesExecutiveReducer,
+   manager:ManagerReducer
   }
 });

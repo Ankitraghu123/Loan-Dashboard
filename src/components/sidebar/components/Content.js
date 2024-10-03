@@ -24,6 +24,10 @@ function SidebarContent(props) {
 
   // Custom hooks for handling collapsible sections
   const { isOpen: isLeadsOpen, onToggle: toggleLeads } = useDisclosure();
+  const { isOpen: isAssociatesOpen, onToggle: toggleAssociates } = useDisclosure();
+  const { isOpen: isTelecallerOpen, onToggle: toggleTelecaller } = useDisclosure();
+  const { isOpen: isSalesExecutive, onToggle: toggleSalesExecutive } = useDisclosure();
+  const { isOpen: isManager, onToggle: toggleManager} = useDisclosure();
   const { isOpen: isReportsOpen, onToggle: toggleReports } = useDisclosure();
 
   const isMobile = useBreakpointValue({ base: true, md: false }); 
@@ -251,6 +255,7 @@ function SidebarContent(props) {
       }
 
       {isAdmin() ?
+      
       <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
       <Link to='/admin/loan' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
                 <Flex
@@ -271,39 +276,218 @@ function SidebarContent(props) {
 
 {isAdmin() ?
       <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-      <Link to='/admin/registerAssociate' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+
+<Flex
+            align="center"
+            onClick={toggleAssociates}
+            cursor="pointer"
+            justify="space-between"
+            p={3}
+            border="1px"
+            borderColor={isAssociatesOpen ? "teal.500" : "gray.200"}
+            borderRadius="8px"
+            _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+            bg={isAssociatesOpen ? "teal.100" : ""}
+          >
+
+<Flex align="center">
+              <Icon as={MdDashboard} color="teal.500" mr={2} />
+              <Text fontWeight="bold">Associates</Text>
+            </Flex>
+            <Icon as={isAssociatesOpen ? MdArrowDropDown : MdArrowRight} />
+          </Flex>
+
+          <Collapse in={isAssociatesOpen}>
+            <Box pl={4} mt={2}>
+            <Link to="/admin/registerAssociate" onClick={handleLinkClick}>
                 <Flex
                   align="center"
-                  p={3}
-                  border="1px"
-                  borderColor="gray.200"
-                  borderRadius="8px"
-                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
-                  bg={activeLink === "/admin/registerAssociate" ? "teal.100" : "white"} // Active background color
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
                 >
-                  <Icon as={MdDashboard} color="teal.500" mr={2} />
-                  <Text fontWeight="bold">Add Associate</Text>
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>Add Associate</Text>
                 </Flex>
-              </Link>
+              </Link> 
+              <Link to="/admin/all-associates" onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
+                >
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>All Associates</Text>
+                </Flex>
+              </Link> 
+            </Box>
+          </Collapse>
               </Box>:null
       }
 
 {isAdmin() ?
       <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
-      <Link to='/admin/all-associates' style={{ textDecoration: 'none' }} onClick={handleLinkClick}>
+
+<Flex
+            align="center"
+            onClick={toggleTelecaller}
+            cursor="pointer"
+            justify="space-between"
+            p={3}
+            border="1px"
+            borderColor={isTelecallerOpen ? "teal.500" : "gray.200"}
+            borderRadius="8px"
+            _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+            bg={isTelecallerOpen ? "teal.100" : ""}
+          >
+
+<Flex align="center">
+              <Icon as={MdDashboard} color="teal.500" mr={2} />
+              <Text fontWeight="bold">Telecaller</Text>
+            </Flex>
+            <Icon as={isTelecallerOpen ? MdArrowDropDown : MdArrowRight} />
+          </Flex>
+
+          <Collapse in={isTelecallerOpen}>
+            <Box pl={4} mt={2}>
+            <Link to="/admin/add-telecaller" onClick={handleLinkClick}>
                 <Flex
                   align="center"
-                  p={3}
-                  border="1px"
-                  borderColor="gray.200"
-                  borderRadius="8px"
-                  _hover={{ borderColor: "teal.400", bg: "gray.50" }}
-                  bg={activeLink === "/admin/all-associates" ? "teal.100" : "white"} // Active background color
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
                 >
-                  <Icon as={MdDashboard} color="teal.500" mr={2} />
-                  <Text fontWeight="bold">All Associates</Text>
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>Add Telecaller</Text>
                 </Flex>
-              </Link>
+              </Link> 
+              <Link to="/admin/all-telecaller" onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
+                >
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>All Telecaller</Text>
+                </Flex>
+              </Link> 
+            </Box>
+          </Collapse>
+              </Box>:null
+      }
+
+{isAdmin() ?
+      <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
+
+<Flex
+            align="center"
+            onClick={toggleSalesExecutive}
+            cursor="pointer"
+            justify="space-between"
+            p={3}
+            border="1px"
+            borderColor={isSalesExecutive ? "teal.500" : "gray.200"}
+            borderRadius="8px"
+            _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+            bg={isSalesExecutive ? "teal.100" : ""}
+          >
+
+<Flex align="center">
+              <Icon as={MdDashboard} color="teal.500" mr={2} />
+              <Text fontWeight="bold">Sales Executive</Text>
+            </Flex>
+            <Icon as={isSalesExecutive ? MdArrowDropDown : MdArrowRight} />
+          </Flex>
+
+          <Collapse in={isSalesExecutive}>
+            <Box pl={4} mt={2}>
+            <Link to="/admin/add-sales-executive" onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
+                >
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>Add Sales Executive</Text>
+                </Flex>
+              </Link> 
+              <Link to="/admin/all-sales-executive" onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
+                >
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>All Sales Executive</Text>
+                </Flex>
+              </Link> 
+            </Box>
+          </Collapse>
+              </Box>:null
+      }
+
+
+{isAdmin() ?
+      <Box ps='20px' pe={{ md: "16px", "2xl": "1px" }}>
+
+<Flex
+            align="center"
+            onClick={toggleManager}
+            cursor="pointer"
+            justify="space-between"
+            p={3}
+            border="1px"
+            borderColor={isManager ? "teal.500" : "gray.200"}
+            borderRadius="8px"
+            _hover={{ borderColor: "teal.400", bg: "gray.50" }}
+            bg={isManager ? "teal.100" : ""}
+          >
+
+<Flex align="center">
+              <Icon as={MdDashboard} color="teal.500" mr={2} />
+              <Text fontWeight="bold">Manager</Text>
+            </Flex>
+            <Icon as={isManager ? MdArrowDropDown : MdArrowRight} />
+          </Flex>
+
+          <Collapse in={isManager}>
+            <Box pl={4} mt={2}>
+            <Link to="/admin/add-manager" onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
+                >
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>Add Manager</Text>
+                </Flex>
+              </Link> 
+              <Link to="/admin/all-manager" onClick={handleLinkClick}>
+                <Flex
+                  align="center"
+                  p={2}
+                  borderRadius="4px"
+                  _hover={{ bg: "teal.200" }}
+                  mt={1}
+                >
+                  <Icon as={MdOutlineAnalytics} color="teal.600" mr={2} />
+                  <Text>All Manager</Text>
+                </Flex>
+              </Link> 
+            </Box>
+          </Collapse>
               </Box>:null
       }
 

@@ -2,10 +2,13 @@ import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AuthService from "./authService";
 import { toast } from "react-toastify";
 
-const authdata = localStorage.getItem('authData')
-const associatedata = localStorage.getItem('associateData')
+const authData = JSON.parse(localStorage.getItem('authData'));
+const associateData = JSON.parse(localStorage.getItem('associateData'));
+const managerData = JSON.parse(localStorage.getItem('managerData'));
+const telecallerData = JSON.parse(localStorage.getItem('telecallerData'));
+const salesExecutiveData = JSON.parse(localStorage.getItem('salesExecutiveData'));
 
-const initialAuth = authdata ? JSON.parse(authdata) : associatedata ? JSON.parse(associatedata) : '';
+const initialAuth = authData || associateData || managerData || telecallerData || salesExecutiveData || '';
 
 
 export const LoginAdmin = createAsyncThunk('admin/login',async(data,thunkApi)=>{

@@ -40,6 +40,12 @@ import AddDocuments from 'views/Documents/AddDocuments';
 import AddFileStages from 'views/FileStages/AddFileStages';
 import AdminDashboard from 'views/admin/AdminDashboard';
 import AllRejectedLead from 'views/admin/AllLeads/components/AllRejectedLead';
+import AddTeleCaller from 'views/Telecaller/AddTeleCaller';
+import AllTelecallers from 'views/Telecaller/AllTelecallers';
+import AddSalesExecutive from 'views/SalesExecutive/AddSalesExecutive';
+import AllSalesExecutive from 'views/SalesExecutive/AllSalesExecutive';
+import AddManager from 'views/Manager/AddManager';
+import AllManagers from 'views/Manager/AllManagers';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -154,6 +160,42 @@ const routes = [
       layout: '/admin',
       path: '/all-associates',
       component: <AllAssociates />,
+    },
+    {
+      name: 'Add Telecaller',
+      layout: '/admin',
+      path: '/add-telecaller',
+      component: <AddTeleCaller />,
+    },
+    {
+      name: 'All Telecaller',
+      layout: '/admin',
+      path: '/all-telecaller',
+      component: <AllTelecallers />,
+    },
+    {
+      name: 'Add Sales Executive',
+      layout: '/admin',
+      path: '/add-sales-executive',
+      component: <AddSalesExecutive />,
+    },
+    {
+      name: 'All Sales Executive',
+      layout: '/admin',
+      path: '/all-sales-executive',
+      component: <AllSalesExecutive />,
+    },
+    {
+      name: 'Add Manager',
+      layout: '/admin',
+      path: '/add-manager',
+      component: <AddManager />,
+    },
+    {
+      name: 'All Managers',
+      layout: '/admin',
+      path: '/all-manager',
+      component: <AllManagers />,
     },
     {
       name: 'Documenst',
