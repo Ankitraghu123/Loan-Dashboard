@@ -179,7 +179,7 @@ const AllAssociates = () => {
             <Tr key={row._id}>
               <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
                 <Text color={textColor} fontSize="sm" fontWeight="700">
-                  <Link to={`/admin/lead-detail/${row._id}`}>{row.name}</Link>
+                  {row.name}
                 </Text>
               </Td>
               <Td fontSize={{ sm: '14px' }}>{row.mobile}</Td>

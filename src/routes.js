@@ -46,6 +46,8 @@ import AddSalesExecutive from 'views/SalesExecutive/AddSalesExecutive';
 import AllSalesExecutive from 'views/SalesExecutive/AllSalesExecutive';
 import AddManager from 'views/Manager/AddManager';
 import AllManagers from 'views/Manager/AllManagers';
+import AllCallsLead from 'views/admin/LeadDetail/AllCallsLead';
+import AllMeetingsLead from 'views/admin/LeadDetail/AllMeetingsLead';
 // import { AddLeadForm } from 'views/Lead/components/addLeadForm';
 
 const routes = [
@@ -215,6 +217,22 @@ const routes = [
       path: '/dashboard',
       component: <AdminDashboard/>,
     },
+
+    {
+      name: 'All Calls for lead',
+      layout: '/admin',
+      path: '/all-calls/:id',
+      icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      component: <AllCallsLead />,
+    }, 
+
+    {
+      name: 'All Meetings for lead',
+      layout: '/admin',
+      path: '/all-meetings/:id',
+      icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      component: <AllMeetingsLead />,
+    }, 
   ] : []),
 
  ...(isAssociate() || isAdmin() ? [

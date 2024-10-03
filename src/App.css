@@ -34,7 +34,7 @@ p{
 .table> Tbody > tr > td{
     border: 1px solid black;
     /* margin: 0 20px !important; */
-    /* background-color: #11047A; */
+    background-color: transparent;
     /* color: white; */
     text-align: center;
 
@@ -53,5 +53,9 @@ p{
 
 .deletebtn{
     color: red;
+}
+
+#isImportant{
+    background-color: rgb(99, 230, 99) !important;
 }
 

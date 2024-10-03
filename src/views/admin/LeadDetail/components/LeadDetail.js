@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorModeValue, Button, FormControl, FormLabel, Input, Textarea, Card, Thead, Tr, Th, Tbody, Td,Table, ModalOverlay, ModalContent, ModalCloseButton,useDisclosure,Modal, ModalBody, ModalFooter, ModalHeader } from '@chakra-ui/react';
+import { Box, Flex, Text, useColorModeValue, Button, FormControl, FormLabel, Input, Textarea, Card, Thead, Tr, Th, Tbody, Td,Table, ModalOverlay, ModalContent, ModalCloseButton,useDisclosure,Modal, ModalBody, ModalFooter, ModalHeader, Checkbox } from '@chakra-ui/react';
 import { GetAllByLead } from 'features/CallRecords/CallSlice';
 import { AddCall } from 'features/CallRecords/CallSlice';
 import { GetSingleLead } from 'features/Lead/leadSlice';
@@ -12,6 +12,7 @@ import Timeline from './Timeline';
 import { isAssociate } from 'utils/config';
 import { isAdmin } from 'utils/config';
 import { EditLead } from 'features/Lead/leadSlice';
+import { FaLongArrowAltRight } from 'react-icons/fa';
 // import {  } from 'react-bootstrap';
 
 const LeadDetail = () => {
@@ -22,7 +23,23 @@ const LeadDetail = () => {
   // const [isAdmin(),setIsAdmin]= useState(false)
 
   const callData = useSelector(state => state.callRecords?.callRecords?.data)
+  const sortedCallData = Array.isArray(callData) 
+    ? [...callData].sort((a, b) => {
+        if (a.isImportant === b.isImportant) {
+          return 0; // No change if both have the same importance
+        }
+        return a.isImportant ? -1 : 1; // Place important calls on top
+      })
+    : [];
   const meetingData = useSelector(state => state.meetingRecords?.meetingByLead?.data)
+  const sortedMeetingData = Array.isArray(meetingData) 
+    ? [...meetingData].sort((a, b) => {
+        if (a.isImportant === b.isImportant) {
+          return 0; // No change if both have the same importance
+        }
+        return a.isImportant ? -1 : 1; // Place important calls on top
+      })
+    : [];
 
   const {callAdded} = useSelector(state => state?.callRecords)
   const {meetingAdded} = useSelector(state => state?.meetingRecords)
@@ -53,22 +70,32 @@ const LeadDetail = () => {
     customName: '',
     mobileNumber: '',
     remark: '',
-    nextCallDate: ''
+    nextCallDate: '',
+    isImportant:false
   });
 
   const [meetingFormData, setMeetingFormData] = useState({
     customName: '',
     mobileNumber: '',
     remark: '',
-    nextMeetingDate: ''
+    nextMeetingDate: '',
+    isImportant:false
   });
 
   const handleCallChange = (e) => {
-    setCallFormData({ ...callFormData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setCallFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value, // Handle checkbox value
+    }));
   };
 
   const handleMeetingChange = (e) => {
-    setMeetingFormData({ ...meetingFormData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setMeetingFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value, // Handle checkbox value
+    }));
   };
 
   const handleCallSubmit = (e) => {
@@ -82,7 +109,8 @@ const LeadDetail = () => {
         customName: '',
         mobileNumber: '',
         remark: '',
-        nextCallDate: ''
+        nextCallDate: '',
+        isImportant:false
     })
   };
 
@@ -97,7 +125,8 @@ const LeadDetail = () => {
         customName: '',
     mobileNumber: '',
     remark: '',
-    nextMeetingDate: ''
+    nextMeetingDate: '',
+    isImportant:false
     })
   };
 
@@ -385,6 +414,15 @@ console.log(dateTimeFormat(isoDateString));
               w="full"
             />
           </FormControl>
+          <FormControl id="isImportant" mt={4}>
+              <Checkbox
+                name="isImportant"
+                isChecked={callFormData.isImportant}
+                onChange={handleCallChange}
+              >
+                Is Important
+              </Checkbox>
+            </FormControl>
 
          <div className='d-flex mt-4'>
          <button className='submitBtn' type="submit" colorScheme="blue" mt={9}>
@@ -452,6 +490,16 @@ console.log(dateTimeFormat(isoDateString));
             />
           </FormControl>
 
+          <FormControl id="isImportant" mt={4}>
+              <Checkbox
+                name="isImportant"
+                isChecked={meetingFormData.isImportant}
+                onChange={handleMeetingChange}
+              >
+                Is Important
+              </Checkbox>
+            </FormControl>
+
           <div className='d-flex mt-4'>
           <button className='submitBtn' type="submit" colorScheme="blue" mt={9}>
             Add Meeting
@@ -465,9 +513,12 @@ console.log(dateTimeFormat(isoDateString));
       px="10px"
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
+         <Flex alignItems='center' justifyContent='space-between' width='full'>
          <Text color={textColor} px="20px" pt="10px" fontSize="22px" fontWeight="700" lineHeight="100%">
-          Call Table
+          Call Table 
         </Text>
+        <Text><Link to={`/admin/all-calls/${id}`}><FaLongArrowAltRight /></Link></Text>
+         </Flex>
         <Box>
         <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead >
@@ -490,19 +541,19 @@ console.log(dateTimeFormat(isoDateString));
             </Tr>
           </Thead>
           <Tbody>
-            {callData?.map((row) => (
-              <Tr key={row._id}>
-                <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
-                  <Text  color={textColor} fontSize="sm" fontWeight="700">
-                    {row.customName}
-                  </Text>
-                </Td>
-                <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
-                <Td fontSize={{ sm: '14px' }}>{row.remark}</Td>
-                <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.nextCallDate)}</Td>
-                <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.callDate)}</Td>
-                
-              </Tr>
+            {sortedCallData?.map((row,idx) => (
+             idx < 5 ?  <Tr key={row._id} id={row.isImportant ? 'isImportant' : null}>
+             <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
+               <Text  color={textColor} fontSize="sm" fontWeight="700">
+                 {row.customName}
+               </Text>
+             </Td>
+             <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
+             <Td fontSize={{ sm: '14px' }}>{row.remark}</Td>
+             <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.nextCallDate)}</Td>
+             <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.callDate)}</Td>
+             
+           </Tr> : null
             ))}
           </Tbody>
         </Table>
@@ -514,9 +565,12 @@ console.log(dateTimeFormat(isoDateString));
       mb="20px"
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
+         <Flex alignItems='center' justifyContent='space-between' width='full'>
          <Text color={textColor} px="20px" pt="10px" fontSize="22px" fontWeight="700" lineHeight="100%">
           Meeting Table
         </Text>
+        <Text><Link to={`/admin/all-meetings/${id}`}><FaLongArrowAltRight /></Link></Text>
+         </Flex>
         <Box>
         <Table className='table' variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
@@ -539,19 +593,19 @@ console.log(dateTimeFormat(isoDateString));
             </Tr>
           </Thead>
           <Tbody>
-            {meetingData?.map((row) => (
-              <Tr key={row._id}>
-                <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
-                  <Text  color={textColor} fontSize="sm" fontWeight="700">
-                    {row.customName}
-                  </Text>
-                </Td>
-                <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
-                <Td fontSize={{ sm: '14px' }}>{row.remark}</Td>
-                <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.nextMeetingDate)}</Td>
-                <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.meetingDate)}</Td>
-                
-              </Tr>
+            {sortedMeetingData?.map((row,idx) => (
+             idx < 5 ?  <Tr key={row._id} id={row.isImportant ? 'isImportant' : null}>
+             <Td fontSize={{ sm: '14px' }} minW={{ sm: '150px', md: '200px', lg: 'auto' }} borderColor="transparent">
+               <Text  color={textColor} fontSize="sm" fontWeight="700">
+                 {row.customName}
+               </Text>
+             </Td>
+             <Td fontSize={{ sm: '14px' }}>{row.mobileNumber}</Td>
+             <Td fontSize={{ sm: '14px' }}>{row.remark}</Td>
+             <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.nextMeetingDate)}</Td>
+             <Td fontSize={{ sm: '14px' }}>{dateTimeFormat(row.meetingDate)}</Td>
+             
+           </Tr> : null
             ))}
           </Tbody>
         </Table>
